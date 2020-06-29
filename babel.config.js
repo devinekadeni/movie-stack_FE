@@ -1,6 +1,5 @@
 module.exports = function (api) {
-  const isProduction = api.env('production');
-  // api.cache(true);
+  const isProduction = api.env('production')
 
   const presets = [
     [
@@ -12,7 +11,7 @@ module.exports = function (api) {
       },
     ],
     '@babel/preset-react',
-  ];
+  ]
 
   const plugins = [
     'react-hot-loader/babel',
@@ -23,7 +22,7 @@ module.exports = function (api) {
         displayName: !isProduction,
       },
     ],
-  ];
+  ]
 
-  return { presets, plugins };
-};
+  return { presets, plugins }
+}

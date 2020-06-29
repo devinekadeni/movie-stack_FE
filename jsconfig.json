@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "paths": {
+      "containers": ["containers/*"],
+      "components": ["components/*"],
+      "assets": ["assets/*"],
+      "utils": ["utils/*"],
+      "references": ["references/*"]
+    }
+  }
+}
