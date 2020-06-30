@@ -1,15 +1,19 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import GlobalStyles from 'styles/GlobalStyles'
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <div>Hello World</div>
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <GlobalStyles />
+      <Router>
+        <Switch>
+          <Route path="/">
+            <div>Hello World</div>
+          </Route>
+        </Switch>
+      </Router>
+    </>
   )
 }
 
