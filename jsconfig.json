@@ -5,11 +5,12 @@
     "baseUrl": "./src",
     "moduleResolution": "node",
     "paths": {
-      "containers": ["containers/*"],
+      "pages": ["pages/*"],
       "components": ["components/*"],
       "assets": ["assets/*"],
       "utils": ["utils/*"],
-      "references": ["references/*"]
+      "references": ["references/*"],
+      "styles": ["styles/*"]
     }
   }
 }

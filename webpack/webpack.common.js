@@ -14,11 +14,12 @@ module.exports = {
   },
   resolve: {
     alias: {
-      containers: path.resolve(APP_DIR, 'containers'),
+      pages: path.resolve(APP_DIR, 'pages'),
       components: path.resolve(APP_DIR, 'components'),
       assets: path.resolve(APP_DIR, 'assets'),
       utils: path.resolve(APP_DIR, 'utils'),
       references: path.resolve(APP_DIR, 'references'),
+      styles: path.resolve(APP_DIR, 'styles'),
     },
   },
   module: {
