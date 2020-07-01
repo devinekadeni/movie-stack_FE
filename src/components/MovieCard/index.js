@@ -1,14 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import Rating from './Rating'
-import { MovieCardWrapper, Cover, Description } from './styles'
-
-const StyledRating = styled(Rating)`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-`
+import Poster from './Poster'
+import { MovieCardWrapper, Description } from './styles'
 
 const MovieCard = ({ title, rating, poster, genres }) => {
   const text =
@@ -16,10 +9,7 @@ const MovieCard = ({ title, rating, poster, genres }) => {
 
   return (
     <MovieCardWrapper>
-      <Cover>
-        <img src={poster} alt="movie_card" />
-        <StyledRating ratingValue={rating} />
-      </Cover>
+      <Poster rating={rating} poster={poster} />
       <Description>
         <h3>{title}</h3>
         <span>{text}</span>

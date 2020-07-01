@@ -51,7 +51,7 @@ export const MovieCardWrapper = styled.div`
     'description';
 `
 
-export const Cover = styled.div`
+export const PosterWrapper = styled.div`
   position: relative;
   grid-area: cover;
 
