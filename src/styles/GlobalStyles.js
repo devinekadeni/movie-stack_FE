@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 1.4rem;
     background-color: #fff;
     line-height: 1.4;

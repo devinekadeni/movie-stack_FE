@@ -17,7 +17,7 @@ module.exports = {
       pages: path.resolve(APP_DIR, 'pages'),
       components: path.resolve(APP_DIR, 'components'),
       assets: path.resolve(APP_DIR, 'assets'),
-      utils: path.resolve(APP_DIR, 'utils'),
+      helpers: path.resolve(APP_DIR, 'helpers'),
       references: path.resolve(APP_DIR, 'references'),
       styles: path.resolve(APP_DIR, 'styles'),
     },
