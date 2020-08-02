@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 //Rating
 export const RatingWrapper = styled.div`
-  width: 2.8rem;
-  height: 2.8rem;
   border-radius: 50%;
   background-color: #fff;
   border: 1px solid #fff;
@@ -13,29 +11,13 @@ export const RatingWrapper = styled.div`
   justify-content: center;
 
   & > span {
+    position: absolute;
     font-weight: bold;
     font-size: 1.2rem;
     line-height: 14px;
     text-align: center;
     color: #000000;
   }
-`
-
-const ForeCircle = styled.div`
-  position: absolute;
-  width: calc(2.8rem - 2px);
-  height: calc(2.8rem - 2px);
-  border-radius: 50%;
-`
-
-export const BackdropCircular = styled(ForeCircle)`
-  border: 2px solid rgba(2, 210, 119, 0.4);
-`
-
-export const RatingCircular = styled(ForeCircle)`
-  border: 2px solid #02d277;
-  border-top: none;
-  border-left: none;
 `
 
 // Movie Card
