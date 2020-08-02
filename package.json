@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack/webpack.prod.js",
-    "start": "NODE_ENV=development node server/server.js"
+    "start": "NODE_ENV=development node server/server.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/styles": "^4.10.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "helmet": "^3.23.0",
@@ -44,6 +47,10 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "@testing-library/jest-dom": "^5.10.1",
     "@testing-library/react": "^10.2.1",
     "@types/jest": "^26.0.0",
