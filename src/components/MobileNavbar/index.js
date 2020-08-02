@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import { Home } from '@styled-icons/material-sharp/Home'
 import { LocalMovies } from '@styled-icons/material/LocalMovies'
 import { List } from '@styled-icons/feather/List'
@@ -21,9 +22,13 @@ const NavbarWrapper = styled.div`
   @media screen and (min-width: 768px) {
     display: none;
   }
+
+  .active-link > svg {
+    color: #20c8a2;
+  }
 `
 
-const MenuItem = styled.div`
+const MenuItem = styled(NavLink)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +36,7 @@ const MenuItem = styled.div`
   svg {
     width: 2rem;
     margin-bottom: 7px;
-    color: ${(props) => (props.selected ? '##20C8A2' : '#9fa6b0')};
+    color: ${(props) => (props.isActive ? '#20C8A2' : '#9fa6b0')};
   }
 
   span {
@@ -42,22 +47,22 @@ const MenuItem = styled.div`
   }
 `
 
-const MobileNavbar = ({ onClickHome, onClickMovie, onClickList, onClickAccount }) => {
+const MobileNavbar = () => {
   return (
     <NavbarWrapper>
-      <MenuItem onClick={onClickHome}>
+      <MenuItem activeClassName="active-link" exact to="/">
         <Home />
         <span>Home</span>
       </MenuItem>
-      <MenuItem onClick={onClickMovie}>
+      <MenuItem activeClassName="active-link" to="/movies">
         <LocalMovies />
         <span>Movies</span>
       </MenuItem>
-      <MenuItem onClick={onClickList}>
+      <MenuItem activeClassName="active-link" to="/my-list">
         <List />
         <span>My List</span>
       </MenuItem>
-      <MenuItem onClick={onClickAccount}>
+      <MenuItem activeClassName="active-link" to="/account">
         <AccountCircle />
         <span>Account</span>
       </MenuItem>

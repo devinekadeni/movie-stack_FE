@@ -11,12 +11,18 @@ const RoutingComponent = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/hello">
-            <div>hello</div>
+          <Route path="/movies">
+            <div>movies</div>
+          </Route>
+          <Route path="/my-list">
+            <div>my list</div>
+          </Route>
+          <Route path="/account">
+            <div>account</div>
           </Route>
         </Switch>
+        <MobileNavbar />
       </Router>
-      <MobileNavbar />
     </>
   )
 }
