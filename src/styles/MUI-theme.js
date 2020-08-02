@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
+import { BASIC_COLOR } from 'styles/_colors'
 
 const theme = createMuiTheme({
   typography: {
@@ -6,7 +7,7 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: '#20C8A2',
+      main: BASIC_COLOR.mainGreen,
     },
   },
 })
