@@ -1,18 +1,19 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider } from '@material-ui/core/styles'
 import GlobalStyles from 'styles/GlobalStyles'
+import theme from 'styles/MUI-theme'
+
+import RoutingComponent from './Routing'
 
 const App = () => {
   return (
     <>
+      <CssBaseline />
       <GlobalStyles />
-      <Router>
-        <Switch>
-          <Route path="/">
-            <div>Hello World</div>
-          </Route>
-        </Switch>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <RoutingComponent />
+      </ThemeProvider>
     </>
   )
 }
