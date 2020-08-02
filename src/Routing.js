@@ -1,12 +1,13 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import MobileNavbar from 'components/MobileNavbar'
+import Header from 'components/Header'
 import Home from 'pages/Home'
 
 const RoutingComponent = () => {
   return (
     <>
       <Router>
+        <Header />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -20,8 +21,13 @@ const RoutingComponent = () => {
           <Route path="/account">
             <div>account</div>
           </Route>
+          <Route path="/login">
+            <div>account</div>
+          </Route>
+          <Route path="/register">
+            <div>account</div>
+          </Route>
         </Switch>
-        <MobileNavbar />
       </Router>
     </>
   )
