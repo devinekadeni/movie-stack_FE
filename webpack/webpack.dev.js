@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const webpackBase = require('./webpack.common')
 
 const APP_DIR = path.resolve(process.cwd(), 'src')
@@ -28,4 +28,4 @@ const webpackDev = {
   plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()],
 }
 
-module.exports = webpackMerge(webpackBase, webpackDev)
+module.exports = merge(webpackBase, webpackDev)
