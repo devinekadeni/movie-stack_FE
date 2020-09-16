@@ -1,24 +1,13 @@
 module.exports = function (api) {
   const isProduction = api.env('production')
 
-  const presets = [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
-    '@babel/preset-react',
-  ]
+  const presets = ['next/babel']
 
   const plugins = [
-    'react-hot-loader/babel',
     [
       'babel-plugin-styled-components',
       {
-        ssr: false,
+        ssr: true,
         displayName: !isProduction,
       },
     ],
