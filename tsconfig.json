@@ -19,6 +19,7 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
+      "@/pages/*": ["pages/*"],
       "@/head/*": ["head/*"],
       "@/components/*": ["components/*"],
       "@/helpers/*": ["helpers/*"],

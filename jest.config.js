@@ -77,13 +77,15 @@ module.exports = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMocks.js',
-    '\\.(scss|css|less)$': '<rootDir>/__mocks__/styleMocks.js',
-    // '^components(.*)$': '<rootDir>/src/components$1',
-    // '^containers(.*)$': '<rootDir>/src/containers$1',
-    // '^utils(.*)$': '<rootDir>/src/utils$1',
-    // '^reference(.*)$': '<rootDir>/src/reference$1',
+    // '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+    //   '<rootDir>/__mocks__/fileMocks.js',
+    // '\\.(scss|css|less)$': '<rootDir>/__mocks__/styleMocks.js',
+    '^@/pages(.*)$': '<rootDir>/pages$1',
+    '^@/head(.*)$': '<rootDir>/head$1',
+    '^@/components(.*)$': '<rootDir>/components$1',
+    '^@/helpers(.*)$': '<rootDir>/helpers$1',
+    '^@/constants(.*)$': '<rootDir>/constants$1',
+    '^@/styles(.*)$': '<rootDir>/styles$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

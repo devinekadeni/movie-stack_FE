@@ -17,13 +17,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest",
     "lint-all": "eslint . --ext ts --ext tsx --ext js",
     "prettify-all": "prettier --write .",
     "type-check": "tsc --pretty --noEmit"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run test && lint-staged"
     }
   },
   "lint-staged": {
