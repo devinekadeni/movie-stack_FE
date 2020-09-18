@@ -1,15 +1,19 @@
+import { ReactNode } from 'react'
 import Document, { DocumentContext } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheets } from '@material-ui/core/styles'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet()
+  static async getInitialProps(ctx: DocumentContext): ReactNode {
+    const StyledComponentsheet = new ServerStyleSheet()
+    const MuiSheet = new ServerStyleSheets()
     const originalRenderPage = ctx.renderPage
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            StyledComponentsheet.collectStyles(MuiSheet.collect(<App {...props} />)),
         })
 
       const initialProps = await Document.getInitialProps(ctx)
@@ -18,12 +22,13 @@ export default class MyDocument extends Document {
         styles: (
           <>
             {initialProps.styles}
-            {sheet.getStyleElement()}
+            {MuiSheet.getStyleElement()}
+            {StyledComponentsheet.getStyleElement()}
           </>
         ),
       }
     } finally {
-      sheet.seal()
+      StyledComponentsheet.seal()
     }
   }
 }
