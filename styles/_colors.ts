@@ -1,3 +1,3 @@
-export const BASIC_COLOR: Color = {
+export const BASIC_COLOR = {
   mainGreen: '#20C8A2',
 }
