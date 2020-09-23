@@ -18,6 +18,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint-all": "eslint . --ext ts --ext tsx --ext js",
     "prettify-all": "prettier --write .",
     "type-check": "tsc --pretty --noEmit"
