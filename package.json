@@ -25,12 +25,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run type-check && lint-staged",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run test"
     }
   },
   "lint-staged": {
-    "*.@(ts|tsx)": [
+    "*.{ts,tsx}": [
+      "tsc -p tsconfig.json --noEmit",
       "eslint --cache --fix",
       "prettier --write"
     ]
