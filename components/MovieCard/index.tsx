@@ -1,57 +1,53 @@
 import styled from 'styled-components'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import Poster from './Poster'
+import Rating from './Rating'
+import { SCREEN } from '@/styles/mediaBreakPoint'
 
 const Wrapper = styled.div`
   position: relative;
   max-width: 200px;
-`
 
-const Poster = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 12px 12px 48px 12px;
-  border: 1px solid #f4f4f4;
-`
-
-const RatingWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 50%;
-  border: 3px solid #fff;
-
-  > .progress-base {
-    color: #a0ece4;
-    position: absolute;
+  & > div:first-child {
+    position: relative;
   }
 `
 
-const Rating = styled.span`
-  position: absolute;
-  font-size: 1.6rem;
+const MovieTitle = styled.h5`
+  font-size: 1em;
   color: #212121;
-  font-weight: bold;
+  margin: 8px 0 4px;
+`
+
+const Genre = styled.span`
+  font-size: 0.875em;
+  color: #838994;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  @media screen and (min-width: ${SCREEN.tablet}) {
+    -webkit-line-clamp: 3;
+  }
 `
 
 interface Props {
   poster: string
   rating: number
+  movieTitle: string
+  genre: string[]
 }
 
-const MovieCard: React.FC<Props> = ({ poster, rating }) => {
+const MovieCard: React.FC<Props> = ({ poster, rating, movieTitle, genre }) => {
   return (
     <Wrapper>
-      <Poster src={poster} alt="poster image" />
-      <RatingWrapper>
-        <CircularProgress className="progress-base" variant="static" value={100} />
-        <CircularProgress variant="static" value={rating} />
-        <Rating>{(rating / 10).toFixed(1)}</Rating>
-      </RatingWrapper>
+      <div>
+        <Poster src={poster} alt="poster image" />
+        <Rating rating={rating} />
+      </div>
+      <MovieTitle>{movieTitle}</MovieTitle>
+      <Genre>{genre.join(', ')}</Genre>
     </Wrapper>
   )
 }
