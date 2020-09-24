@@ -6,6 +6,8 @@ test('should render MovieCard properly', () => {
   const props = {
     poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
     rating: 73,
+    movieTitle: 'Birds of Prey',
+    genre: ['Action', 'Horror', 'Comedy'],
   }
 
   render(<MovieCard {...props} />)
