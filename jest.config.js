@@ -83,6 +83,7 @@ module.exports = {
     '^@/pages(.*)$': '<rootDir>/pages$1',
     '^@/head(.*)$': '<rootDir>/head$1',
     '^@/components(.*)$': '<rootDir>/components$1',
+    '^@/containers(.*)$': '<rootDir>/containers$1',
     '^@/helpers(.*)$': '<rootDir>/helpers$1',
     '^@/constants(.*)$': '<rootDir>/constants$1',
     '^@/styles(.*)$': '<rootDir>/styles$1',
