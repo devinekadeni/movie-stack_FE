@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 39px 100px;
+  background-color: white;
 
   & > div:first-child {
     display: grid;
