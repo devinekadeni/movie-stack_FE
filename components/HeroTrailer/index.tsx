@@ -1,6 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
-import { Wrapper, ScreenBlocker, LayerInfo, ActionWrapper, Button } from './styles'
+
+import { VolumeUpFill } from '@styled-icons/bootstrap/VolumeUpFill'
+import { VolumeMuteFill } from '@styled-icons/bootstrap/VolumeMuteFill'
+import {
+  Wrapper,
+  ScreenBlocker,
+  LayerInfo,
+  ActionWrapper,
+  Button,
+  MuteButton,
+} from './styles'
 
 interface TrailerData {
   id: string
@@ -12,7 +22,8 @@ interface TrailerData {
 interface Props {
   trailerData: TrailerData
   isSelected?: boolean
-  muted?: boolean
+  muted: boolean
+  onToggleMute: () => void
   isItemList?: boolean
   [key: string]: unknown
 }
@@ -21,6 +32,7 @@ const HeroTrailer: React.FC<Props> = ({
   trailerData,
   isSelected,
   muted,
+  onToggleMute,
   isItemList,
   ...props
 }) => {
@@ -84,6 +96,9 @@ const HeroTrailer: React.FC<Props> = ({
             See Details
           </Button>
         </ActionWrapper>
+        <MuteButton onClick={onToggleMute}>
+          {muted ? <VolumeMuteFill /> : <VolumeUpFill />}
+        </MuteButton>
       </LayerInfo>
     </Wrapper>
   )

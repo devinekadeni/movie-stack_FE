@@ -1,5 +1,8 @@
 import type { AppProps } from 'next/app'
 import React, { useEffect, ReactNode } from 'react'
+
+import { MuteContextProvider } from '@/context/MuteContext'
+
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Layout from '../layout'
@@ -18,9 +21,11 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
     <ThemeProvider theme={MuiTheme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <MuteContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MuteContextProvider>
     </ThemeProvider>
   )
 }

@@ -104,3 +104,20 @@ export const Button = styled(MuiButton)`
         : ''}
   }
 `
+
+export const MuteButton = styled.span`
+  position: absolute;
+  right: 100px;
+  bottom: 150px;
+  width: 45px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  border: 1px solid white;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+`
