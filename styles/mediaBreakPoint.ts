@@ -1,5 +1,6 @@
 export const SCREEN = {
   tablet: '600px',
-  desktop: '1000px',
+  notebook: '1000px',
+  desktop: '1200px',
   largeDesktop: '1600px',
 }

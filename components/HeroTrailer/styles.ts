@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import MuiButton from '@material-ui/core/Button'
+import { SCREEN } from '@/styles/mediaBreakPoint'
 
 export const LayerInfo = styled.div`
   display: inline-flex;
@@ -28,13 +29,24 @@ export const LayerInfo = styled.div`
     font-size: 4.8rem;
     line-height: 5.8rem;
     margin: 0 0 24px;
+
+    @media screen and (max-width: ${SCREEN.desktop}) {
+      font-size: 3.2rem;
+      line-height: 4.4rem;
+      margin: 0 0 18px;
+    }
   }
 
   & > p {
     max-width: 50%;
-    font-size: 1.8rem;
-    line-height: 2.7rem;
+    font-size: 1.6rem;
+    line-height: 3rem;
     margin: 0 0 32px;
+
+    @media screen and (max-width: ${SCREEN.desktop}) {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
   }
 `
 
@@ -98,6 +110,12 @@ export const Button = styled(MuiButton)`
     font-size: 1.6rem;
     line-height: 2.4rem;
     transition: background-color 0.3s;
+
+    @media screen and (max-width: ${SCREEN.desktop}) {
+      padding: 8px 28px;
+      font-size: 1.2rem;
+    }
+
     ${(props) =>
       props.variant === 'contained' || props.variant === 'outlined'
         ? variant[props.variant]
@@ -116,6 +134,11 @@ export const MuteButton = styled.span`
   cursor: pointer;
   border: 1px solid white;
   transition: background-color 0.3s;
+
+  @media screen and (max-width: ${SCREEN.desktop}) {
+    width: 36px;
+    padding: 6px;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
