@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
 
 import { VolumeUpFill } from '@styled-icons/bootstrap/VolumeUpFill'
@@ -26,6 +26,7 @@ interface Props {
   onToggleMute: () => void
   isItemList?: boolean
   [key: string]: unknown
+  className?: string
 }
 
 const HeroTrailer: React.FC<Props> = ({
@@ -34,19 +35,14 @@ const HeroTrailer: React.FC<Props> = ({
   muted,
   onToggleMute,
   isItemList,
+  className,
   ...props
 }) => {
   const [isLazy, setIsLazy] = useState(isSelected)
-  const heroEl = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
     if (isItemList) {
       if (isSelected) {
-        heroEl?.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center',
-        })
         setIsLazy(false)
       } else {
         setTimeout(() => {
@@ -65,7 +61,7 @@ const HeroTrailer: React.FC<Props> = ({
   }
 
   return (
-    <Wrapper ref={heroEl}>
+    <Wrapper className={className}>
       <ReactPlayer
         url={trailerData.url}
         light={isLazy}

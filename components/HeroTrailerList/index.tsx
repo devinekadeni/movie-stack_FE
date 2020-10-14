@@ -1,25 +1,7 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import HeroTrailer from '@/components/HeroTrailer'
-
-const Wrapper = styled.div`
-  padding-left: 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-`
-
-const HeroWrapper = styled.div`
-  display: inline-block;
-  padding-right: 20px;
-  vertical-align: middle;
-`
+import Indicators from './Indicators'
+import { HeroWrapper, StyledCarousel } from './styles'
 
 interface Trailers {
   id: string
@@ -35,30 +17,48 @@ interface Props {
 }
 
 const HeroTrailerList: React.FC<Props> = ({ trailers, muted, onToggleMute }) => {
-  const [selectedId, setSelectedId] = useState(trailers[0].id)
+  const [selectedIdx, setSelectedIdx] = useState(0)
 
   return (
-    <Wrapper>
-      {trailers.map((val) => {
-        return (
-          <HeroWrapper key={val.id} onClick={() => setSelectedId(val.id)}>
-            <HeroTrailer
-              trailerData={{
-                id: val.id,
-                url: val.url,
-                title: val.title,
-                summary: val.summary,
-              }}
-              id={val.id}
-              isSelected={selectedId === val.id}
-              muted={muted}
-              onToggleMute={onToggleMute}
-              isItemList
-            />
-          </HeroWrapper>
-        )
-      })}
-    </Wrapper>
+    <>
+      <StyledCarousel
+        centerMode
+        centerSlidePercentage={92}
+        showArrows={false}
+        showStatus={false}
+        showThumbs={false}
+        showIndicators={false}
+        onClickItem={(item) => {
+          setSelectedIdx(item)
+        }}
+        selectedItem={selectedIdx}
+      >
+        {trailers.map((val, i) => {
+          return (
+            <HeroWrapper key={val.id} index={i}>
+              <HeroTrailer
+                trailerData={{
+                  id: val.id,
+                  url: val.url,
+                  title: val.title,
+                  summary: val.summary,
+                }}
+                id={val.id}
+                isSelected={i === selectedIdx}
+                muted={muted}
+                onToggleMute={onToggleMute}
+                isItemList
+              />
+            </HeroWrapper>
+          )
+        })}
+      </StyledCarousel>
+      <Indicators
+        amount={trailers.length}
+        selectedIdx={selectedIdx}
+        onDotClick={(idx) => setSelectedIdx(idx)}
+      />
+    </>
   )
 }
 

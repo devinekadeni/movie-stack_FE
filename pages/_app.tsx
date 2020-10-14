@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Layout from '../layout'
 import MuiTheme from '@/styles/MUI-theme'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
   useEffect(() => {
