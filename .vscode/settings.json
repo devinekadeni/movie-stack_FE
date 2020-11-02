@@ -117,6 +117,9 @@
   },
   "peacock.color": "#a5025f",
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
   // "[javascript]": {
   //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
