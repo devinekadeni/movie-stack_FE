@@ -1,11 +1,8 @@
-import styled from 'styled-components'
+import React from 'react'
+import Home from '@/containers/Home'
 
-const Wrapper = styled.div`
-  color: red;
-`
-
-const Home = () => {
-  return <Wrapper>Home page</Wrapper>
+const HomePage: React.FC = () => {
+  return <Home />
 }
 
-export default Home
+export default HomePage
