@@ -4,25 +4,30 @@ import { BASIC_COLOR } from '@/styles/_colors'
 import MovieCard from '@/components/MovieCard'
 import { ArrowLeftCircle } from '@styled-icons/bootstrap/ArrowLeftCircle'
 import { ArrowRightCircle } from '@styled-icons/bootstrap/ArrowRightCircle'
+import { SCREEN } from '@/styles/mediaBreakPoint'
 
 const Wrapper = styled.div`
   font-size: 1.6rem;
-  max-width: 1200px;
+  max-width: 90vw;
   margin: auto;
   display: grid;
   grid-template-columns: 3fr 12fr;
   column-gap: 30px;
-  margin-bottom: 72px;
 `
 
 const CategoryWrapper = styled.div`
   & > h2 {
     white-space: pre-line;
     font-weight: bold;
-    font-size: 38px;
-    line-height: 44px;
+    font-size: 3.8rem;
+    line-height: 4.4rem;
     text-transform: uppercase;
     margin: 0 0 24px;
+
+    @media screen and (max-width: ${SCREEN.desktop}) {
+      font-size: 2.8rem;
+      line-height: 3rem;
+    }
   }
 `
 
@@ -68,11 +73,12 @@ interface Movie {
 interface Props {
   categoryTitle: string
   movieList: Movie[]
+  className?: string
 }
 
-const MovieShowCase: React.FC<Props> = ({ categoryTitle, movieList }) => {
+const MovieShowCase: React.FC<Props> = ({ categoryTitle, movieList, className }) => {
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <CategoryWrapper>
         <h2>{categoryTitle}</h2>
         <Line />

@@ -5,13 +5,22 @@ import { MuteContext } from '@/context/MuteContext'
 import styled from 'styled-components'
 import HeroTrailerList from '@/components/HeroTrailerList'
 import HeroTrailer from '@/components/HeroTrailer'
-import MovieShowCase from './localComponents/MovieShowCase'
+import MovieShowCaseComponent from './localComponents/MovieShowCase'
 
 const Wrapper = styled.div`
   & > div:first-child {
     margin-bottom: 80px;
     position: relative;
   }
+`
+
+const TrailerWrapper = styled.div`
+  padding: 0 20px;
+  margin-bottom: 64px;
+`
+
+const MovieShowCase = styled(MovieShowCaseComponent)`
+  margin-bottom: 72px;
 `
 
 const TRAILERS = [
@@ -162,7 +171,7 @@ const Home: React.FC = () => {
       </div>
       <MovieShowCase categoryTitle={`WHAT's\nPOPULAR`} movieList={MOVIE_LIST} />
       <MovieShowCase categoryTitle={`NOW\nPLAYING`} movieList={MOVIE_LIST} />
-      <div style={{ padding: '0 20px' }}>
+      <TrailerWrapper>
         <HeroTrailer
           light
           trailerData={TRAILERS[0]}
@@ -171,7 +180,9 @@ const Home: React.FC = () => {
           muted={isMute}
           onToggleMute={onToggleMute}
         />
-      </div>
+      </TrailerWrapper>
+      <MovieShowCase categoryTitle={`COMING\nSOON`} movieList={MOVIE_LIST} />
+      <MovieShowCase categoryTitle={`TOP\nRATED`} movieList={MOVIE_LIST} />
     </Wrapper>
   )
 }
