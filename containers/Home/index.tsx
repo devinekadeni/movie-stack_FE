@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import { MuteContext } from '@/context/MuteContext'
 
@@ -157,8 +157,47 @@ const MOVIE_LIST = [
   },
 ]
 
+function isInViewportVertically(el: null | HTMLDivElement) {
+  if (!el) {
+    return false
+  }
+
+  const { top, bottom, height } = el.getBoundingClientRect()
+
+  // NOTE: 117 --> header height
+  if (
+    (top >= 117 && top <= window.innerHeight - (1 / 2) * height) ||
+    (bottom >= (1 / 2) * height + 117 && bottom <= window.innerHeight)
+  ) {
+    return true
+  }
+
+  return false
+}
+
 const Home: React.FC = () => {
   const [isMute, setIsMute] = useContext(MuteContext)
+  const [firstHeroAutoplay, setFirstHeroAutoplay] = useState(false)
+  const [secondHeroAutoplay, setSecondHeroAutoplay] = useState(false)
+
+  const firstHeroEl = useRef<null | HTMLDivElement>(null)
+  const secondHeroEl = useRef<null | HTMLDivElement>(null)
+
+  useEffect(() => {
+    function autoplayHeroDecision() {
+      const isFirstHeroShouldplay = isInViewportVertically(firstHeroEl?.current)
+      const isSecondHeroShouldplay = isInViewportVertically(secondHeroEl?.current)
+
+      setFirstHeroAutoplay(isFirstHeroShouldplay)
+      setSecondHeroAutoplay(isSecondHeroShouldplay)
+    }
+
+    window.addEventListener('scroll', autoplayHeroDecision)
+
+    return () => {
+      window.removeEventListener('scroll', autoplayHeroDecision)
+    }
+  }, [])
 
   const onToggleMute = () => {
     setIsMute(!isMute)
@@ -166,19 +205,24 @@ const Home: React.FC = () => {
 
   return (
     <Wrapper>
-      <div>
-        <HeroTrailerList trailers={TRAILERS} muted={isMute} onToggleMute={onToggleMute} />
+      <div ref={firstHeroEl}>
+        <HeroTrailerList
+          trailers={TRAILERS}
+          muted={isMute}
+          onToggleMute={onToggleMute}
+          autoplay={firstHeroAutoplay}
+        />
       </div>
       <MovieShowCase categoryTitle={`WHAT's\nPOPULAR`} movieList={MOVIE_LIST} />
       <MovieShowCase categoryTitle={`NOW\nPLAYING`} movieList={MOVIE_LIST} />
-      <TrailerWrapper>
+      <TrailerWrapper ref={secondHeroEl}>
         <HeroTrailer
-          light
           trailerData={TRAILERS[0]}
           width="100%"
           height="40.4vw"
           muted={isMute}
           onToggleMute={onToggleMute}
+          autoplay={secondHeroAutoplay}
         />
       </TrailerWrapper>
       <MovieShowCase categoryTitle={`COMING\nSOON`} movieList={MOVIE_LIST} />

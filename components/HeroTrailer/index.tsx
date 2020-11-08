@@ -27,6 +27,7 @@ interface Props {
   isItemList?: boolean
   [key: string]: unknown
   className?: string
+  autoplay?: boolean
 }
 
 const HeroTrailer: React.FC<Props> = ({
@@ -36,6 +37,7 @@ const HeroTrailer: React.FC<Props> = ({
   onToggleMute,
   isItemList,
   className,
+  autoplay,
   ...props
 }) => {
   const [isLazy, setIsLazy] = useState(isSelected)
@@ -65,7 +67,7 @@ const HeroTrailer: React.FC<Props> = ({
       <ReactPlayer
         url={trailerData.url}
         light={isLazy}
-        playing
+        playing={autoplay}
         muted={muted}
         loop
         width="90vw"

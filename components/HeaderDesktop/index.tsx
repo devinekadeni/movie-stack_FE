@@ -26,9 +26,9 @@ const HeaderDesktop: React.FC = () => {
           <Nav>REGISTER</Nav>
         </Link>
         <Languages>
-          <Nav href="javascript:void(0)">EN</Nav>
+          <Nav href="#">EN</Nav>
           <span>|</span>
-          <Nav href="javascript:void(0)">ID</Nav>
+          <Nav href="#">ID</Nav>
         </Languages>
       </div>
     </Wrapper>

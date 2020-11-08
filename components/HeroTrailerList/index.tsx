@@ -14,9 +14,15 @@ interface Props {
   trailers: Trailers[]
   muted: boolean
   onToggleMute: () => void
+  autoplay?: boolean
 }
 
-const HeroTrailerList: React.FC<Props> = ({ trailers, muted, onToggleMute }) => {
+const HeroTrailerList: React.FC<Props> = ({
+  trailers,
+  muted,
+  onToggleMute,
+  autoplay,
+}) => {
   const [selectedIdx, setSelectedIdx] = useState(0)
 
   return (
@@ -48,6 +54,7 @@ const HeroTrailerList: React.FC<Props> = ({ trailers, muted, onToggleMute }) => 
                 muted={muted}
                 onToggleMute={onToggleMute}
                 isItemList
+                autoplay={autoplay}
               />
             </HeroWrapper>
           )
