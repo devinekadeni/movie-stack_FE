@@ -19,14 +19,7 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/pages/*": ["pages/*"],
-      "@/head/*": ["head/*"],
-      "@/components/*": ["components/*"],
-      "@/containers/*": ["containers/*"],
-      "@/helpers/*": ["helpers/*"],
-      "@/context/*": ["context/*"],
-      "@/constants/*": ["constants/*"],
-      "@/styles/*": ["styles/*"]
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules"],
