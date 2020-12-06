@@ -1,5 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useQuery } from '@apollo/client'
+
+import * as queries from '../queries.graphql'
+
 import { BASIC_COLOR } from '@/styles/_colors'
 import MovieCard from '@/components/MovieCard'
 import { ArrowLeftCircle } from '@styled-icons/bootstrap/ArrowLeftCircle'
@@ -54,7 +58,7 @@ const ScrollButtonWrapper = styled.div`
   }
 `
 
-const MovieList = styled.div`
+const MovieListWrapper = styled.div`
   display: grid;
   grid-template-columns: ${({ itemCount }: { itemCount: number }) =>
     `repeat(${itemCount}, 20%)`};
@@ -66,17 +70,43 @@ interface Movie {
   id: string
   poster: string
   rating: number
-  movieTitle: string
-  genre: string[]
+  title: string
+  genres: string[]
+  releaseDate: string
+  summary: string
+}
+
+interface Genre {
+  id: string
+  name: string
 }
 
 interface Props {
   categoryTitle: string
-  movieList: Movie[]
   className?: string
+  movieType: string
 }
 
-const MovieShowCase: React.FC<Props> = ({ categoryTitle, movieList, className }) => {
+const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType }) => {
+  const MovieList = useQuery(queries.MovieList, {
+    variables: { page: 1, movieType },
+  })
+
+  const GenreList = useQuery(queries.GenreList, {
+    variables: { page: 1, movieType },
+  })
+
+  if (MovieList.loading || GenreList.loading) {
+    return <div>Loading...</div>
+  }
+
+  if (MovieList.error || GenreList.error) {
+    return <div>Oops Something wrong</div>
+  }
+
+  const { movies }: { movies: Movie[] } = MovieList.data.movieList
+  const { genreList }: { genreList: Genre[] } = GenreList.data
+
   return (
     <Wrapper className={className}>
       <CategoryWrapper>
@@ -91,19 +121,22 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, movieList, className })
           </span>
         </ScrollButtonWrapper>
       </CategoryWrapper>
-      <MovieList itemCount={movieList.length}>
-        {movieList.map((movie) => {
+      <MovieListWrapper itemCount={movies.length}>
+        {movies.map((movie) => {
+          const genres = movie.genres.map((genreId) => {
+            return genreList.find((val) => val.id === genreId)?.name || ''
+          })
           return (
             <MovieCard
               key={movie.id}
               poster={movie.poster}
               rating={movie.rating}
-              movieTitle={movie.movieTitle}
-              genre={movie.genre}
+              title={movie.title}
+              genres={genres}
             />
           )
         })}
-      </MovieList>
+      </MovieListWrapper>
     </Wrapper>
   )
 }

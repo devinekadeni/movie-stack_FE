@@ -35,19 +35,19 @@ const Genre = styled.span`
 interface Props {
   poster: string
   rating: number
-  movieTitle: string
-  genre: string[]
+  title: string
+  genres: string[]
 }
 
-const MovieCard: React.FC<Props> = ({ poster, rating, movieTitle, genre }) => {
+const MovieCard: React.FC<Props> = ({ poster, rating, title, genres }) => {
   return (
     <Wrapper>
       <div>
-        <Poster src={poster} alt="poster image" />
+        <Poster src={`https://image.tmdb.org/t/p/w185${poster}`} alt="poster image" />
         <Rating rating={rating} />
       </div>
-      <MovieTitle>{movieTitle}</MovieTitle>
-      <Genre>{genre.join(', ')}</Genre>
+      <MovieTitle>{title}</MovieTitle>
+      {genres && <Genre>{genres.join(', ')}</Genre>}
     </Wrapper>
   )
 }

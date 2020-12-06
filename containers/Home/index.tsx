@@ -54,109 +54,6 @@ const TRAILERS = [
   },
 ]
 
-const MOVIE_LIST = [
-  {
-    id: '1',
-    poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
-    rating: 73,
-    movieTitle: 'Birds of Prey',
-    genre: [
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-    ],
-  },
-  {
-    id: '2',
-    poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
-    rating: 73,
-    movieTitle: 'Birds of Prey',
-    genre: [
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-    ],
-  },
-  {
-    id: '3',
-    poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
-    rating: 73,
-    movieTitle: 'Birds of Prey',
-    genre: [
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-    ],
-  },
-  {
-    id: '4',
-    poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
-    rating: 73,
-    movieTitle: 'Birds of Prey',
-    genre: [
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-    ],
-  },
-  {
-    id: '5',
-    poster: 'https://image.tmdb.org/t/p/w185/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
-    rating: 73,
-    movieTitle: 'Birds of Prey',
-    genre: [
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-      'Action',
-      'Crime',
-      'Comedy',
-    ],
-  },
-]
-
 function isInViewportVertically(el: null | HTMLDivElement) {
   if (!el) {
     return false
@@ -213,8 +110,8 @@ const Home: React.FC = () => {
           autoplay={firstHeroAutoplay}
         />
       </div>
-      <MovieShowCase categoryTitle={`WHAT's\nPOPULAR`} movieList={MOVIE_LIST} />
-      <MovieShowCase categoryTitle={`NOW\nPLAYING`} movieList={MOVIE_LIST} />
+      <MovieShowCase categoryTitle={`WHAT's\nPOPULAR`} movieType="POPULAR" />
+      <MovieShowCase categoryTitle={`NOW\nPLAYING`} movieType="NOW_PLAYING" />
       <TrailerWrapper ref={secondHeroEl}>
         <HeroTrailer
           trailerData={TRAILERS[0]}
@@ -225,8 +122,8 @@ const Home: React.FC = () => {
           autoplay={secondHeroAutoplay}
         />
       </TrailerWrapper>
-      <MovieShowCase categoryTitle={`COMING\nSOON`} movieList={MOVIE_LIST} />
-      <MovieShowCase categoryTitle={`TOP\nRATED`} movieList={MOVIE_LIST} />
+      <MovieShowCase categoryTitle={`COMING\nSOON`} movieType="UPCOMING" />
+      <MovieShowCase categoryTitle={`TOP\nRATED`} movieType="TOP_RATED" />
     </Wrapper>
   )
 }
