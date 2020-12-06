@@ -13,7 +13,7 @@ test('should render MovieCard properly', () => {
   render(<MovieCard {...props} />)
   expect(screen.getByAltText('poster image')).toHaveAttribute(
     'src',
-    `https://image.tmdb.org/t/p/w185${props.poster}`
+    `/w185${props.poster}`
   )
   expect(screen.getByText((props.rating / 10).toFixed(1))).toBeInTheDocument()
 })
