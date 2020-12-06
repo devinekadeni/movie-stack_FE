@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
+import GLOBAL from '@/config/global'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
@@ -12,7 +13,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: 'http://localhost:3300/graphql',
+      uri: GLOBAL.graphqlBaseURL,
     }),
     cache: new InMemoryCache(),
   })

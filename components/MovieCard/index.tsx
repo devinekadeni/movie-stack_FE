@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Poster from './Poster'
 import Rating from './Rating'
 import { SCREEN } from '@/styles/mediaBreakPoint'
+import GLOBAL from '@/config/global'
 
 const Wrapper = styled.div`
   position: relative;
@@ -43,7 +44,7 @@ const MovieCard: React.FC<Props> = ({ poster, rating, title, genres }) => {
   return (
     <Wrapper>
       <div>
-        <Poster src={`https://image.tmdb.org/t/p/w185${poster}`} alt="poster image" />
+        <Poster src={`${GLOBAL.imageBaseURL}/w185${poster}`} alt="poster image" />
         <Rating rating={rating} />
       </div>
       <MovieTitle>{title}</MovieTitle>
