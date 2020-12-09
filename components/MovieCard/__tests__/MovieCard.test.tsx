@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@/helpers/test-utils'
-import MovieCard, { DEFAULT_POSTER } from '@/components/MovieCard'
+import MovieCard from '@/components/MovieCard'
 
 test('should render MovieCard properly', () => {
   const props = {
@@ -10,12 +10,15 @@ test('should render MovieCard properly', () => {
     genres: ['Action', 'Horror', 'Comedy'],
   }
 
-  const encodedUrl = encodeURIComponent(`/w185${props.poster}`)
+  const optimizedImgByNextjs =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
   render(<MovieCard {...props} />)
 
   expect(screen.getByAltText('poster image')).toBeInTheDocument()
-  expect(screen.getByAltText('poster image').getAttribute('src')).toContain(encodedUrl)
+  expect(screen.getByAltText('poster image').getAttribute('src')).toContain(
+    optimizedImgByNextjs
+  )
 })
 
 test('should render MovieCard with empty poster props', () => {
@@ -26,9 +29,12 @@ test('should render MovieCard with empty poster props', () => {
     genres: ['Action', 'Horror', 'Comedy'],
   }
 
-  const encodedUrl = encodeURIComponent(DEFAULT_POSTER)
+  const optimizedImgByNextjs =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
   render(<MovieCard {...props} />)
 
-  expect(screen.getByAltText('poster image').getAttribute('src')).toContain(encodedUrl)
+  expect(screen.getByAltText('poster image').getAttribute('src')).toContain(
+    optimizedImgByNextjs
+  )
 })
