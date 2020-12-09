@@ -53,7 +53,7 @@ const MovieCard: React.FC<Props> = ({ poster, rating, title, genres }) => {
         <Rating rating={rating} />
       </div>
       <MovieTitle>{title}</MovieTitle>
-      {genres && <Genre>{genres.join(', ')}</Genre>}
+      {genres && <Genre>{genres.slice(0, 4).join(', ')}</Genre>}
     </Wrapper>
   )
 }

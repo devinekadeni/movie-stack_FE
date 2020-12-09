@@ -20,7 +20,7 @@ const TrailerWrapper = styled.div`
 `
 
 const MovieShowCase = styled(MovieShowCaseComponent)`
-  margin-bottom: 72px;
+  margin-bottom: 72px !important;
 `
 
 const TRAILERS = [
