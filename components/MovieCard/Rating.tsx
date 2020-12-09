@@ -30,11 +30,13 @@ interface Props {
 }
 
 const Rating: React.FC<Props> = ({ rating }) => {
+  const ratingStar = rating === 0 ? 'NR' : rating * 10
+
   return (
     <RatingWrapper>
       <CircularProgress className="progress-base" variant="static" value={100} />
       <CircularProgress variant="static" value={rating} />
-      <RatingValue>{(rating / 10).toFixed(1)}</RatingValue>
+      <RatingValue>{ratingStar}</RatingValue>
     </RatingWrapper>
   )
 }

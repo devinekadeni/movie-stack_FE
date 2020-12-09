@@ -40,11 +40,16 @@ interface Props {
   genres: string[]
 }
 
+const DEFAULT_POSTER =
+  'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg'
+
 const MovieCard: React.FC<Props> = ({ poster, rating, title, genres }) => {
+  const posterImage = poster ? `${GLOBAL.imageBaseURL}/w185${poster}` : DEFAULT_POSTER
+
   return (
     <Wrapper>
       <div>
-        <Poster src={`${GLOBAL.imageBaseURL}/w185${poster}`} alt="poster image" />
+        <Poster src={posterImage} alt="poster image" />
         <Rating rating={rating} />
       </div>
       <MovieTitle>{title}</MovieTitle>
