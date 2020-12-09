@@ -1,11 +1,9 @@
 import React, { useRef } from 'react'
 import { useQuery } from '@apollo/client'
-import LazyLoad from 'react-lazyload'
 
 import * as queries from '../../queries.graphql'
 
 import MovieCard from '@/components/MovieCard'
-import MovieCardLoader from '@/components/MovieCard/Loader'
 import MovieShowCaseLoader from './Loader'
 import { ArrowLeftCircle } from '@styled-icons/bootstrap/ArrowLeftCircle'
 import { ArrowRightCircle } from '@styled-icons/bootstrap/ArrowRightCircle'
@@ -77,19 +75,19 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
         {isFetching ? (
           <MovieShowCaseLoader />
         ) : (
-          movies.map((movie, i) => {
+          movies.map((movie) => {
             const genres = movie.genres.map((genreId) => {
               return genreList.find((val) => val.id === genreId)?.name || ''
             })
+
             return (
-              <LazyLoad key={movie.id} placeholder={<MovieCardLoader />} overflow={i > 3}>
-                <MovieCard
-                  poster={movie.poster}
-                  rating={movie.rating}
-                  title={movie.title}
-                  genres={genres}
-                />
-              </LazyLoad>
+              <MovieCard
+                key={movie.id}
+                poster={movie.poster}
+                rating={movie.rating}
+                title={movie.title}
+                genres={genres}
+              />
             )
           })
         )}

@@ -1,9 +1,7 @@
 import styled from 'styled-components'
+import Image from 'next/image'
 
-const Poster = styled.img`
-  width: 100%;
-  height: 100%;
-  min-height: 299px;
+const Poster = styled(Image).attrs({ layout: 'fill' })`
   background-color: #f0f0f0;
   object-fit: contain;
   border-radius: 0.75em 0.75em 3em;
