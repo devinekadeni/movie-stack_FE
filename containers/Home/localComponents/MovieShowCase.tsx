@@ -6,6 +6,7 @@ import * as queries from '../queries.graphql'
 
 import { BASIC_COLOR } from '@/styles/_colors'
 import MovieCard from '@/components/MovieCard'
+import MovieShowCaseLoader from './MovieShowCase.loader'
 import { ArrowLeftCircle } from '@styled-icons/bootstrap/ArrowLeftCircle'
 import { ArrowRightCircle } from '@styled-icons/bootstrap/ArrowRightCircle'
 import { SCREEN } from '@/styles/mediaBreakPoint'
@@ -96,16 +97,15 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
     variables: { page: 1, movieType },
   })
 
-  if (MovieList.loading || GenreList.loading) {
-    return <div>Loading...</div>
-  }
+  const isFetching = MovieList.loading || GenreList.loading
+  const isErrorFetching = MovieList.error || GenreList.error
 
-  if (MovieList.error || GenreList.error) {
+  if (isErrorFetching) {
     return <div>Oops Something wrong</div>
   }
 
-  const { movies }: { movies: Movie[] } = MovieList.data.movieList
-  const { genreList }: { genreList: Genre[] } = GenreList.data
+  const { movies }: { movies: Movie[] } = MovieList?.data?.movieList || {}
+  const { genreList }: { genreList: Genre[] } = GenreList?.data || {}
 
   return (
     <Wrapper className={className}>
@@ -121,21 +121,25 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
           </span>
         </ScrollButtonWrapper>
       </CategoryWrapper>
-      <MovieListWrapper itemCount={movies.length}>
-        {movies.map((movie) => {
-          const genres = movie.genres.map((genreId) => {
-            return genreList.find((val) => val.id === genreId)?.name || ''
+      <MovieListWrapper itemCount={movies?.length || 4}>
+        {isFetching ? (
+          <MovieShowCaseLoader />
+        ) : (
+          movies.map((movie) => {
+            const genres = movie.genres.map((genreId) => {
+              return genreList.find((val) => val.id === genreId)?.name || ''
+            })
+            return (
+              <MovieCard
+                key={movie.id}
+                poster={movie.poster}
+                rating={movie.rating}
+                title={movie.title}
+                genres={genres}
+              />
+            )
           })
-          return (
-            <MovieCard
-              key={movie.id}
-              poster={movie.poster}
-              rating={movie.rating}
-              title={movie.title}
-              genres={genres}
-            />
-          )
-        })}
+        )}
       </MovieListWrapper>
     </Wrapper>
   )
