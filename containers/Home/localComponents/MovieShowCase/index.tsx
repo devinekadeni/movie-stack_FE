@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useQuery } from '@apollo/client'
+import LazyLoad from 'react-lazyload'
 
 import * as queries from '../../queries.graphql'
 
 import MovieCard from '@/components/MovieCard'
+import MovieCardLoader from '@/components/MovieCard/Loader'
 import MovieShowCaseLoader from './Loader'
 import { ArrowLeftCircle } from '@styled-icons/bootstrap/ArrowLeftCircle'
 import { ArrowRightCircle } from '@styled-icons/bootstrap/ArrowRightCircle'
@@ -38,6 +40,7 @@ interface Props {
 }
 
 const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType }) => {
+  const scrollContainer = useRef(null)
   const MovieList = useQuery(queries.MovieList, {
     variables: { page: 1, movieType },
   })
@@ -70,22 +73,23 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
           </span>
         </ScrollButtonWrapper>
       </CategoryWrapper>
-      <MovieListWrapper itemCount={movies?.length || 4}>
+      <MovieListWrapper itemCount={movies?.length || 4} ref={scrollContainer}>
         {isFetching ? (
           <MovieShowCaseLoader />
         ) : (
-          movies.map((movie) => {
+          movies.map((movie, i) => {
             const genres = movie.genres.map((genreId) => {
               return genreList.find((val) => val.id === genreId)?.name || ''
             })
             return (
-              <MovieCard
-                key={movie.id}
-                poster={movie.poster}
-                rating={movie.rating}
-                title={movie.title}
-                genres={genres}
-              />
+              <LazyLoad key={movie.id} placeholder={<MovieCardLoader />} overflow={i > 3}>
+                <MovieCard
+                  poster={movie.poster}
+                  rating={movie.rating}
+                  title={movie.title}
+                  genres={genres}
+                />
+              </LazyLoad>
             )
           })
         )}
