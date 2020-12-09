@@ -7,3 +7,5 @@ declare module '*.graphql' {
 
   export = value
 }
+
+declare module 'jest-next-dynamic'
