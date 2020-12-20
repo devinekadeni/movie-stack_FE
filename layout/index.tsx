@@ -5,19 +5,16 @@ import HeaderDesktop from '@/components/HeaderDesktop'
 import { Wrapper, HeaderWrapper } from './styles'
 
 const Layout: React.FC = (props) => {
-  const [headerHeight, setHeaderHeight] = useState(120)
   const [isScrolled, setIsScrolled] = useState(false)
   const headerEl = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
-    setHeaderHeight(headerEl?.current?.clientHeight || 120)
-
     window.addEventListener('scroll', handleScroll)
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [null])
+  }, [])
 
   const handleScroll = () => {
     const scrollPosition = document.documentElement.scrollTop
@@ -29,7 +26,7 @@ const Layout: React.FC = (props) => {
   }
 
   return (
-    <Wrapper headerHeight={headerHeight}>
+    <Wrapper>
       <HeaderWrapper ref={headerEl} isScrolled={isScrolled}>
         <HeaderDesktop />
       </HeaderWrapper>

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   position: relative;
-  padding-top: ${(props: { headerHeight: number }) => props.headerHeight}px;
+  padding-top: 120px;
 `
 
 export const HeaderWrapper = styled.div`
