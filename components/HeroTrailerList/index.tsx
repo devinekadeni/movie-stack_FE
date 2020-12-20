@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
-import HeroTrailer from '@/components/HeroTrailer'
+import HeroTrailer, { TrailerData } from '@/components/HeroTrailer'
 import Indicators from './Indicators'
 import { HeroWrapper, StyledCarousel } from './styles'
 
-interface Trailers {
-  id: string
-  url: string
-  title: string
-  summary: string
-}
-
 interface Props {
-  trailers: Trailers[]
+  trailers: TrailerData[]
   muted: boolean
   onToggleMute: () => void
   autoplay?: boolean

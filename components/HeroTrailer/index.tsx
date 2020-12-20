@@ -12,7 +12,7 @@ import {
   MuteButton,
 } from './styles'
 
-interface TrailerData {
+export interface TrailerData {
   id: string
   url: string
   title: string
