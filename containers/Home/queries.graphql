@@ -22,3 +22,12 @@ query GenreList {
     name
   }
 }
+
+query PopularTrailerList {
+  popularTrailerList {
+    id
+    title
+    summary
+    url
+  }
+}
