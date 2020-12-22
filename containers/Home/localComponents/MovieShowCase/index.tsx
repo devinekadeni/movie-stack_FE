@@ -21,7 +21,7 @@ interface Movie {
   poster: string
   rating: number
   title: string
-  genres: string[]
+  genreIds: string[]
   releaseDate: string
   summary: string
 }
@@ -76,7 +76,7 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
           <MovieShowCaseLoader />
         ) : (
           movies.map((movie) => {
-            const genres = movie.genres.map((genreId) => {
+            const genres = movie.genreIds.map((genreId) => {
               return genreList.find((val) => val.id === genreId)?.name || ''
             })
 

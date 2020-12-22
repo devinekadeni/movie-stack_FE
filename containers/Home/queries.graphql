@@ -8,7 +8,7 @@ query MovieList($page: Int!, $countryId: String, $movieType: MovieType!) {
       title
       poster
       backdrop
-      genres
+      genreIds
       rating
       summary
       releaseDate
