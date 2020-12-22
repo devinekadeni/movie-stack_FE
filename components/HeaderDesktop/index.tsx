@@ -6,7 +6,7 @@ const HeaderDesktop: React.FC = () => {
   return (
     <Wrapper>
       <div>
-        <Logo src="logo.png" alt="logo" />
+        <Logo src="/logo.png" alt="logo" />
         <Link href="/" passHref>
           <Nav>HOME</Nav>
         </Link>
