@@ -1,0 +1,26 @@
+query MovieDetail($id: ID!) {
+  movieDetail(id: $id) {
+    movie {
+      id
+      title
+      poster
+      backdrop
+      genres {
+        id
+        name
+      }
+      genreIds
+      rating
+      summary
+      releaseDate
+      duration
+    }
+    castList {
+      id
+      name
+      photo
+      character
+      order
+    }
+  }
+}
