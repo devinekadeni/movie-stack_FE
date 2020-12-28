@@ -86,7 +86,7 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
                 poster={movie.poster}
                 rating={movie.rating}
                 title={movie.title}
-                genres={genres}
+                genres={genres.slice(0, 4)}
               />
             )
           })
