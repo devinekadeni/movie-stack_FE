@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import BaseMovieCard from '@/components/MovieCard'
 
 export const Wrapper = styled.div`
   display: grid;
@@ -7,7 +8,84 @@ export const Wrapper = styled.div`
   margin: auto;
 `
 
-export const PosterSection = styled.section``
+export const PosterSection = styled.section`
+  padding-top: 16px;
+`
+
+export const MovieCard = styled(BaseMovieCard)`
+  max-width: 280px;
+  margin: auto;
+
+  & > div:first-child {
+    height: 420px;
+  }
+
+  & > h5 {
+    font-size: 32px;
+    line-height: 48px;
+    margin: 24px 0 12px;
+  }
+
+  & > span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 27px;
+    overflow: initial;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+    display: initial;
+  }
+`
+
+export const ActionButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #d8dee2;
+  border-bottom: 1px solid #d8dee2;
+  margin-top: 85px;
+  position: relative;
+
+  & > span {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    width: 1px;
+    height: 100%;
+    background-color: #d8dee2;
+  }
+
+  button {
+    flex: 1;
+    border: none;
+    border-radius: unset;
+    outline: none;
+    background-color: #fff;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    color: #8d96aa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+
+    & > svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background-color: #11cfbc;
+      color: #fff;
+    }
+  }
+`
 
 export const SummarySection = styled.section`
   background-color: #f8fafc;

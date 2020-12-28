@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react'
 import { useQuery } from '@apollo/client'
 import * as queries from './queries.graphql'
-import MovieCard from '@/components/MovieCard'
 import { KeyboardArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
+import { Share as ShareIcon } from '@styled-icons/material/Share'
+import { PlaylistAdd as AddListIcon } from '@styled-icons/material/PlaylistAdd'
 
 import TextInfo from './localComponents/TextInfo'
 import Avatar from './localComponents/Avatar'
@@ -10,6 +11,8 @@ import { isReleased } from './helper'
 import {
   Wrapper,
   PosterSection,
+  MovieCard,
+  ActionButtonGroup,
   SummarySection,
   InfoSection,
   Synopsis,
@@ -94,6 +97,15 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
             genres={movieData.genres.map((genre) => genre.name)}
           />
         )}
+        <ActionButtonGroup>
+          <button>
+            <ShareIcon size="1.2em" /> <span>Share</span>
+          </button>
+          <span />
+          <button>
+            <AddListIcon size="1.5em" /> <span>Add to List</span>
+          </button>
+        </ActionButtonGroup>
       </PosterSection>
 
       <SummarySection>
