@@ -21,6 +21,7 @@ const MovieTitle = styled.h5`
 `
 
 const Genre = styled.span`
+  font-family: Noto Sans;
   font-size: 0.875em;
   color: #838994;
   margin: 0;
@@ -39,22 +40,23 @@ interface Props {
   rating: number
   title: string
   genres: string[]
+  className?: string
 }
 
 const DEFAULT_POSTER =
   'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg'
 
-const MovieCard: React.FC<Props> = ({ poster, rating, title, genres }) => {
+const MovieCard: React.FC<Props> = ({ poster, rating, title, genres, className }) => {
   const posterImage = poster ? `${GLOBAL.imageBaseURL}/w185${poster}` : DEFAULT_POSTER
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <div>
         <Poster src={posterImage} alt="poster image" />
         <Rating rating={rating} />
       </div>
       <MovieTitle>{title}</MovieTitle>
-      {genres && <Genre>{genres.slice(0, 4).join(', ')}</Genre>}
+      {genres && <Genre>{genres.join(', ')}</Genre>}
     </Wrapper>
   )
 }
