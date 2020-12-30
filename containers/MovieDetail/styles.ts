@@ -10,6 +10,8 @@ export const Wrapper = styled.div`
 
 export const PosterSection = styled.section`
   padding-top: 16px;
+  max-height: 85vh;
+  overflow-y: scroll;
 `
 
 export const MovieCard = styled(BaseMovieCard)`
@@ -90,6 +92,8 @@ export const ActionButtonGroup = styled.div`
 export const SummarySection = styled.section`
   background-color: #f8fafc;
   padding: 48px;
+  max-height: 85vh;
+  overflow-y: scroll;
 `
 
 export const InfoSection = styled.article`
@@ -197,4 +201,25 @@ export const SeeMoreCast = styled.div<SeeMoreCastProps>`
   }
 `
 
-export const MediaSection = styled.section``
+export const MediaSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow-y: scroll;
+`
+
+export const Backdrop = styled.div`
+  display: flex;
+  min-height: 156px;
+  transition: border 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #11cfbc;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+`

@@ -4,9 +4,11 @@ import * as queries from './queries.graphql'
 import { KeyboardArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
 import { Share as ShareIcon } from '@styled-icons/material/Share'
 import { PlaylistAdd as AddListIcon } from '@styled-icons/material/PlaylistAdd'
+import GLOBAL from '@/config/global'
 
 import TextInfo from './localComponents/TextInfo'
 import Avatar from './localComponents/Avatar'
+import Trailer from './localComponents/Trailer'
 import { isReleased } from './helper'
 import {
   Wrapper,
@@ -21,6 +23,7 @@ import {
   MoreCastList,
   SeeMoreCast,
   MediaSection,
+  Backdrop,
 } from './styles'
 
 interface Props {
@@ -52,17 +55,45 @@ interface Cast {
   order: number
 }
 
+interface MovieDetail {
+  movie: MovieData
+  castList: Cast[]
+}
+
+interface Trailer {
+  id: string
+  name: string
+  url: string
+}
+
+interface Backdrop {
+  filePath: string
+  voteAvg: number
+}
+
+interface MovieMedia {
+  trailers: Trailer[]
+  backdrops: Backdrop[]
+}
+
 const MovieDetail: React.FC<Props> = ({ movieId }) => {
-  const { data } = useQuery(queries.MovieDetail, {
+  const movieDetail = useQuery(queries.MovieDetail, {
     variables: { id: movieId },
   })
+  const mediaData = useQuery(queries.MovieMedia, {
+    variables: { id: movieId },
+  })
+
   const [toggleCast, setToggleCast] = useState(false)
   const toggleRef = useRef<null | HTMLDivElement>(null)
 
-  const movieData: MovieData = data?.movieDetail?.movie || {}
-  const castData: Cast[] = [...(data?.movieDetail?.castList || [])]
+  const { trailers, backdrops }: MovieMedia = mediaData.data?.movieMedia || {}
+  const { movie, castList }: MovieDetail = movieDetail.data?.movieDetail || {
+    movie: {},
+    castList: [],
+  }
 
-  const { baseCast, moreCast } = castData
+  const { baseCast, moreCast } = [...castList]
     .sort((a, b) => a.order - b.order)
     .reduce(
       (acc: { baseCast: Cast[]; moreCast: Cast[] }, val, idx) => {
@@ -81,20 +112,18 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       { baseCast: [], moreCast: [] }
     )
 
-  const releasedYear = movieData?.releaseDate?.split('-')[0] || ''
-  const releasedStatus = isReleased(movieData?.releaseDate || '')
-    ? 'Released'
-    : 'Coming Soon'
+  const releasedYear = movie?.releaseDate?.split('-')[0] || ''
+  const releasedStatus = isReleased(movie?.releaseDate || '') ? 'Released' : 'Coming Soon'
 
   return (
     <Wrapper>
       <PosterSection>
-        {movieData.id && (
+        {movie.id && (
           <MovieCard
-            poster={movieData.poster}
-            rating={movieData.rating}
-            title={movieData.title}
-            genres={movieData.genres.map((genre) => genre.name)}
+            posterUrl={`${GLOBAL.imageBaseURL}/w342${movie.poster}`}
+            rating={movie.rating}
+            title={movie.title}
+            genres={movie.genres.map((genre) => genre.name)}
           />
         )}
         <ActionButtonGroup>
@@ -111,12 +140,12 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       <SummarySection>
         <InfoSection>
           <TextInfo title="YEAR" value={releasedYear} />
-          <TextInfo title="DURATION" value={`${movieData.duration} minutes`} />
+          <TextInfo title="DURATION" value={`${movie.duration} minutes`} />
           <TextInfo title="STATUS" value={releasedStatus} />
         </InfoSection>
         <Synopsis>
           <h5>Synopsis</h5>
-          <p>{movieData.summary}</p>
+          <p>{movie.summary}</p>
         </Synopsis>
         <CastSection>
           <h5>Cast</h5>
@@ -176,7 +205,19 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
         </CastSection>
       </SummarySection>
 
-      <MediaSection>media</MediaSection>
+      <MediaSection>
+        {trailers?.map((trailer) => (
+          <Trailer key={trailer.url} url={trailer.url} name={trailer.name} />
+        ))}
+        {backdrops?.map((backdrop) => (
+          <Backdrop key={backdrop.filePath}>
+            <img
+              src={`${GLOBAL.imageBaseURL}/w300${backdrop.filePath}`}
+              alt="backdrop_image"
+            />
+          </Backdrop>
+        ))}
+      </MediaSection>
     </Wrapper>
   )
 }

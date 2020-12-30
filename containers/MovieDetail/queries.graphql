@@ -24,3 +24,18 @@ query MovieDetail($id: ID!) {
     }
   }
 }
+
+query MovieMedia($id: ID!) {
+  movieMedia(id: $id) {
+    movieId
+    trailers {
+      id
+      url
+      name
+    }
+    backdrops {
+      filePath
+      voteAvg
+    }
+  }
+}
