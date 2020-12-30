@@ -4,7 +4,7 @@ import MovieCard from '@/components/MovieCard'
 
 test('should render MovieCard properly', () => {
   const props = {
-    poster: '/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
+    posterUrl: '/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg',
     rating: 7.3,
     title: 'Birds of Prey',
     genres: ['Action', 'Horror', 'Comedy'],
@@ -23,7 +23,7 @@ test('should render MovieCard properly', () => {
 
 test('should render MovieCard with empty poster props', () => {
   const props = {
-    poster: '',
+    posterUrl: '',
     rating: 7.3,
     title: 'Birds of Prey',
     genres: ['Action', 'Horror', 'Comedy'],
