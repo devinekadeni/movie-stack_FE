@@ -46,11 +46,13 @@ const Wrapper = styled.div`
 `
 
 const baseUrl = `${GLOBAL.imageBaseURL}/w92`
+const DEFAULT_IMG =
+  'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg'
 
 const Avatar: React.FC<Props> = ({ url, name, characterName }) => {
   return (
     <Wrapper>
-      <img src={`${baseUrl}${url}`} alt={name} />
+      <img src={url ? `${baseUrl}${url}` : DEFAULT_IMG} alt={name} />
       <div>
         <h5>{name}</h5>
         <span>{characterName}</span>
