@@ -16,7 +16,7 @@ const Trailer: React.FC<Props> = ({ url, name }) => {
       />
       <Layer>
         <PlayIcon color="#fff" size="4em" />
-        <TrailerName>{name}</TrailerName>
+        <TrailerName title={name}>{name}</TrailerName>
       </Layer>
     </Wrapper>
   )

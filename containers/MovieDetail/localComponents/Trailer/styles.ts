@@ -42,5 +42,5 @@ export const TrailerName = styled.span`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  padding: 0 12px 8px;
+  margin: 0 12px 8px;
 `
