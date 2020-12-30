@@ -56,4 +56,18 @@ export const MovieListWrapper = styled.div`
     `repeat(${itemCount}, 20%)`};
   column-gap: 5%;
   overflow-x: scroll;
+
+  a {
+    text-decoration: unset;
+
+    & > div > h5 {
+      transition: color 0.3s;
+    }
+  }
+
+  a:hover {
+    & > div > h5 {
+      color: #11cfbc;
+    }
+  }
 `

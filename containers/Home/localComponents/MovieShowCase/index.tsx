@@ -1,5 +1,7 @@
 import React, { useRef } from 'react'
+import Link from 'next/link'
 import { useQuery } from '@apollo/client'
+import GLOBAL from '@/config/global'
 
 import * as queries from '../../queries.graphql'
 
@@ -15,6 +17,7 @@ import {
   ScrollButtonWrapper,
   MovieListWrapper,
 } from './styles'
+import { titleEncoder } from '@/helpers/formatter'
 
 interface Movie {
   id: string
@@ -81,13 +84,19 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
             })
 
             return (
-              <MovieCard
+              <Link
                 key={movie.id}
-                poster={movie.poster}
-                rating={movie.rating}
-                title={movie.title}
-                genres={genres.slice(0, 4)}
-              />
+                href={`/movie/${titleEncoder(movie.title)}_${movie.id}`}
+              >
+                <a>
+                  <MovieCard
+                    posterUrl={`${GLOBAL.imageBaseURL}/w185${movie.poster}`}
+                    rating={movie.rating}
+                    title={movie.title}
+                    genres={genres.slice(0, 4)}
+                  />
+                </a>
+              </Link>
             )
           })
         )}
