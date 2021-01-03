@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import ReactPlayer from 'react-player'
 
 import { VolumeUpFill } from '@styled-icons/bootstrap/VolumeUpFill'
@@ -11,6 +12,7 @@ import {
   Button,
   MuteButton,
 } from './styles'
+import { titleEncoder } from '@/helpers/formatter'
 
 export interface TrailerData {
   id: string
@@ -90,9 +92,11 @@ const HeroTrailer: React.FC<Props> = ({
           <Button variant="outlined" onClick={addToMyList}>
             Add to My List
           </Button>
-          <Button variant="contained" onClick={goToDetails}>
-            See Details
-          </Button>
+          <Link href={`/movie/${titleEncoder(trailerData.title)}_${trailerData.id}`}>
+            <Button variant="contained" onClick={goToDetails}>
+              See Details
+            </Button>
+          </Link>
         </ActionWrapper>
         <MuteButton onClick={onToggleMute}>
           {muted ? <VolumeMuteFill /> : <VolumeUpFill />}
