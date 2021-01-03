@@ -4,11 +4,14 @@ import * as queries from './queries.graphql'
 import { KeyboardArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
 import { Share as ShareIcon } from '@styled-icons/material/Share'
 import { PlaylistAdd as AddListIcon } from '@styled-icons/material/PlaylistAdd'
+import { ChevronLeft as LeftArrowIcon } from '@styled-icons/material-rounded/ChevronLeft'
+import { ChevronRight as RightArrowIcon } from '@styled-icons/material-rounded/ChevronRight'
 import GLOBAL from '@/config/global'
 
 import TextInfo from './localComponents/TextInfo'
 import Avatar from './localComponents/Avatar'
 import Trailer from './localComponents/Trailer'
+import DialogMedia from './localComponents/DialogMedia'
 import { isReleased } from './helper'
 import {
   Wrapper,
@@ -24,6 +27,7 @@ import {
   SeeMoreCast,
   MediaSection,
   Backdrop,
+  ArrowButton,
 } from './styles'
 
 interface Props {
@@ -84,6 +88,7 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
     variables: { id: movieId },
   })
 
+  const [dialogMedia, setDialogMedia] = useState({ type: '', index: 0, isOpen: false })
   const [toggleCast, setToggleCast] = useState(false)
   const toggleRef = useRef<null | HTMLDivElement>(null)
 
@@ -114,6 +119,51 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
 
   const releasedYear = movie?.releaseDate?.split('-')[0] || ''
   const releasedStatus = isReleased(movie?.releaseDate || '') ? 'Released' : 'Coming Soon'
+
+  const dialogUrl = {
+    video: trailers?.[dialogMedia.index]?.url,
+    image: `${GLOBAL.imageBaseURL}/w1280${backdrops?.[dialogMedia.index]?.filePath}`,
+  }
+
+  const isFirstMedia =
+    ((trailers?.length === 0 && dialogMedia.type === 'image') ||
+      dialogMedia.type === 'video') &&
+    dialogMedia.index === 0
+
+  const isLastMedia =
+    (backdrops?.length === 0 &&
+      dialogMedia.type === 'video' &&
+      dialogMedia.index === trailers?.length - 1) ||
+    (dialogMedia.type === 'image' && dialogMedia.index === backdrops?.length - 1)
+
+  const onCloseDialogMedia = () => {
+    setDialogMedia({
+      type: '',
+      index: 0,
+      isOpen: false,
+    })
+  }
+
+  const onNextMedia = () => {
+    const isLastTrailer =
+      dialogMedia.type === 'video' && dialogMedia.index === trailers.length - 1
+
+    if (isLastTrailer) {
+      setDialogMedia((prev) => ({ ...prev, type: 'image', index: 0 }))
+      return
+    }
+    setDialogMedia((prev) => ({ ...prev, index: prev.index + 1 }))
+  }
+
+  const onPreviousMedia = () => {
+    const isFirstBackdrop = dialogMedia.type === 'image' && dialogMedia.index === 0
+
+    if (isFirstBackdrop) {
+      setDialogMedia((prev) => ({ ...prev, type: 'video', index: trailers.length - 1 }))
+      return
+    }
+    setDialogMedia((prev) => ({ ...prev, index: prev.index - 1 }))
+  }
 
   return (
     <Wrapper>
@@ -206,11 +256,23 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       </SummarySection>
 
       <MediaSection>
-        {trailers?.map((trailer) => (
-          <Trailer key={trailer.url} url={trailer.url} name={trailer.name} />
+        {trailers?.map((trailer, idx) => (
+          <Trailer
+            key={trailer.url}
+            url={trailer.url}
+            name={trailer.name}
+            onClick={() => {
+              setDialogMedia({ type: 'video', index: idx, isOpen: true })
+            }}
+          />
         ))}
-        {backdrops?.map((backdrop) => (
-          <Backdrop key={backdrop.filePath}>
+        {backdrops?.map((backdrop, idx) => (
+          <Backdrop
+            key={backdrop.filePath}
+            onClick={() => {
+              setDialogMedia({ type: 'image', index: idx, isOpen: true })
+            }}
+          >
             <img
               src={`${GLOBAL.imageBaseURL}/w300${backdrop.filePath}`}
               alt="backdrop_image"
@@ -218,6 +280,31 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
           </Backdrop>
         ))}
       </MediaSection>
+
+      <DialogMedia
+        isOpen={dialogMedia.isOpen}
+        onClose={onCloseDialogMedia}
+        type={dialogMedia.type}
+        url={dialogUrl[dialogMedia.type as 'video' | 'image'] || ''}
+        renderControl={
+          <>
+            {!isFirstMedia && (
+              <ArrowButton
+                direction="left"
+                title="Previous Media"
+                onClick={onPreviousMedia}
+              >
+                <LeftArrowIcon size="3em" />
+              </ArrowButton>
+            )}
+            {!isLastMedia && (
+              <ArrowButton direction="right" title="Next Media" onClick={onNextMedia}>
+                <RightArrowIcon size="3em" />
+              </ArrowButton>
+            )}
+          </>
+        }
+      />
     </Wrapper>
   )
 }

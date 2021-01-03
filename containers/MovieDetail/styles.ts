@@ -223,3 +223,16 @@ export const Backdrop = styled.div`
     object-fit: cover;
   }
 `
+
+export const ArrowButton = styled.span<{ direction: string }>`
+  position: fixed;
+  top: 50%;
+  color: #e3e3e3;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  ${(props) => (props.direction === 'left' ? 'left: 0' : 'right: 0')};
+
+  &:hover {
+    opacity: 0.7;
+  }
+`
