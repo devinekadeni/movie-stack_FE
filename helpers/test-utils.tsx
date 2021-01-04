@@ -1,5 +1,6 @@
 import { ReactElement, FC } from 'react'
 import { render, RenderResult } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { ThemeProvider } from '@material-ui/core/styles'
 import MuiTheme from '@/styles/MUI-theme'
 import '@testing-library/jest-dom'
@@ -15,4 +16,4 @@ const customRender = (
 
 export * from '@testing-library/react'
 
-export { customRender as render }
+export { customRender as render, userEvent }
