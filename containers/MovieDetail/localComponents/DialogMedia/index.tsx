@@ -32,7 +32,7 @@ const ImageWrapper = styled.div`
 
 const DialogMedia: React.FC<Props> = ({ isOpen, onClose, type, url, renderControl }) => {
   return (
-    <Dialog open={isOpen} onClose={onClose} maxWidth={false}>
+    <Dialog open={isOpen} maxWidth={false}>
       <>
         <CloseButton onClick={onClose} title="Close Media">
           <CloseIcon size="3em" />
