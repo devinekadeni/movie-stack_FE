@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@/helpers/test-utils'
 import MovieCard from '@/components/MovieCard'
 
