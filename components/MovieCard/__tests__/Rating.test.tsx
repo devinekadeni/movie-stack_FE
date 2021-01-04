@@ -13,3 +13,9 @@ test('should render Rating with 0 rating props', () => {
 
   expect(screen.getByText('NR')).toBeInTheDocument()
 })
+
+test('should render Rating without rating props', () => {
+  render(<Rating />)
+
+  expect(screen.getByText('NR')).toBeInTheDocument()
+})

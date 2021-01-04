@@ -26,7 +26,7 @@ const RatingValue = styled.span`
 `
 
 interface Props {
-  rating: number
+  rating?: number
 }
 
 const Rating: React.FC<Props> = ({ rating = 0 }) => {
