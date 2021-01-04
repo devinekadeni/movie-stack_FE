@@ -65,7 +65,7 @@ const HeroTrailer: React.FC<Props> = ({
   }
 
   return (
-    <Wrapper className={className}>
+    <Wrapper className={className} data-testid="hero-trailer-wrapper">
       <ReactPlayer
         url={trailerData.url}
         light={isLazy}
