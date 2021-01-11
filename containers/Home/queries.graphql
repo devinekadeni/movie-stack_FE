@@ -1,5 +1,5 @@
-query MovieList($page: Int!, $countryId: String, $movieType: MovieType!) {
-  movieList(page: $page, countryId: $countryId, movieType: $movieType) {
+query MovieList($page: Int!, $movieType: MovieType!) {
+  movieList(page: $page, movieType: $movieType) {
     totalResult
     currentPage
     hasMore
