@@ -1,5 +1,7 @@
+import SearchPage from '@/containers/SearchPage'
+
 const Movies: React.FC = () => {
-  return <div>Movies Page</div>
+  return <SearchPage />
 }
 
 export default Movies
