@@ -4,18 +4,6 @@ import styled from 'styled-components'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import FormLabel from '@material-ui/core/FormLabel'
-
-const Legend = styled(FormLabel).attrs({ component: 'legend' })`
-  && {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 18px;
-    color: #212121 !important;
-    margin-bottom: 8px;
-  }
-`
 
 const FormControlLabel = styled(FormControlLabelMUI)`
   && {
@@ -37,8 +25,27 @@ interface Props {
   onChange: (movieType: MovieType) => void
 }
 
+const OPTIONS = [
+  {
+    label: 'All Movies',
+    value: 'ALL',
+  },
+  {
+    label: 'Upcoming Movies',
+    value: 'UPCOMING',
+  },
+  {
+    label: 'Now Playing',
+    value: 'NOW_PLAYING',
+  },
+  {
+    label: 'Top Rated',
+    value: 'TOP_RATED',
+  },
+]
+
 const MovieType: React.FC<Props> = ({ onChange }) => {
-  const [movieType, setMovieType] = useState<MovieType>('ALL')
+  const [movieType, setMovieType] = useState<MovieType>(OPTIONS[0].value as MovieType)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMovieType = e.target.value as MovieType
@@ -48,40 +55,24 @@ const MovieType: React.FC<Props> = ({ onChange }) => {
   }
 
   return (
-    <FormControl component="fieldset" fullWidth>
-      <Legend>Movies</Legend>
-      <RadioGroup
-        aria-label="movie_type"
-        name="movie_type"
-        value={movieType}
-        onChange={handleOnChange}
-      >
-        <FormControlLabel
-          value="ALL"
-          control={<Radio color="primary" />}
-          label="All Movies"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="UPCOMING"
-          control={<Radio color="primary" />}
-          label="Upcoming Movies"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="NOW_PLAYING"
-          control={<Radio color="primary" />}
-          label="Now Playing"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="TOP_RATED"
-          control={<Radio color="primary" />}
-          label="Top Rated"
-          labelPlacement="start"
-        />
-      </RadioGroup>
-    </FormControl>
+    <RadioGroup
+      aria-label="movie_type"
+      name="movie_type"
+      value={movieType}
+      onChange={handleOnChange}
+    >
+      {OPTIONS.map((option) => {
+        return (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<Radio color="primary" />}
+            label={option.label}
+            labelPlacement="start"
+          />
+        )
+      })}
+    </RadioGroup>
   )
 }
 
