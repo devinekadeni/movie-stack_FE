@@ -22,6 +22,9 @@ const theme = createMuiTheme({
       main: BASIC_COLOR.mainGreen,
     },
   },
+  typography: {
+    fontFamily: "'Ubuntu', sans-serif",
+  },
 })
 
 export default theme
