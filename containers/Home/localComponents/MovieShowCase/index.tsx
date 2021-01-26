@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import { useQuery } from '@apollo/client'
 import GLOBAL from '@/config/global'

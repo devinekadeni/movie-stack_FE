@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState, useMemo } from 'react'
+import { useContext, useEffect, useRef, useState, useMemo } from 'react'
 import { useQuery } from '@apollo/client'
 import * as queries from './queries.graphql'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen, waitFor } from '@/helpers/test-utils'
 import Loader from '../Loader'
 import preloadAll from 'jest-next-dynamic'

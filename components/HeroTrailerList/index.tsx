@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import HeroTrailer, { TrailerData } from '@/components/HeroTrailer'
 import Indicators from './Indicators'
 import { HeroWrapper, StyledCarousel } from './styles'

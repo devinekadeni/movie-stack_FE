@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormControlMUI from '@material-ui/core/FormControl'

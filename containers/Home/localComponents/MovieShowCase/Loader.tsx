@@ -1,4 +1,3 @@
-import React from 'react'
 import MovieCardLoader from '@/components/MovieCard/Loader'
 
 const MovieShowCaseLoader: React.FC = () => {

@@ -1,4 +1,3 @@
-import React from 'react'
 import { IndicatorsWrapper, Dot } from './styles'
 
 interface Props {

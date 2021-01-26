@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app'
-import React, { useEffect, ReactNode } from 'react'
+import { useEffect, ReactNode } from 'react'
 import { ApolloProvider } from '@apollo/client'
 
 import { MuteContextProvider } from '@/context/MuteContext'
