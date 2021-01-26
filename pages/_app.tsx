@@ -3,6 +3,7 @@ import { useEffect, ReactNode } from 'react'
 import { ApolloProvider } from '@apollo/client'
 
 import { MuteContextProvider } from '@/context/MuteContext'
+import { MovieContextProvider } from '@/context/MovieContext'
 import { useApollo } from '@/services/ApolloClient'
 
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -28,9 +29,11 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <MuteContextProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <MovieContextProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MovieContextProvider>
         </MuteContextProvider>
       </ThemeProvider>
     </ApolloProvider>
