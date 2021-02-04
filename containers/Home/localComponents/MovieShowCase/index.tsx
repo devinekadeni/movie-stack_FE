@@ -30,11 +30,6 @@ interface Movie {
   summary: string
 }
 
-interface Genre {
-  id: string
-  name: string
-}
-
 interface Props {
   categoryTitle: string
   className?: string
