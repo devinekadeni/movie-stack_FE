@@ -16,13 +16,6 @@ query MovieList($page: Int!, $movieType: MovieType!) {
   }
 }
 
-query GenreList {
-  genreList {
-    id
-    name
-  }
-}
-
 query PopularTrailerList {
   popularTrailerList {
     id

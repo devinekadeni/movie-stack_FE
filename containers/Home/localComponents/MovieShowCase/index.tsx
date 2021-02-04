@@ -1,9 +1,10 @@
-import { useRef } from 'react'
+import { useRef, useContext } from 'react'
 import Link from 'next/link'
 import { useQuery } from '@apollo/client'
 import GLOBAL from '@/config/global'
 
 import * as queries from '../../queries.graphql'
+import { MovieContext } from '@/context/MovieContext'
 
 import MovieCard from '@/components/MovieCard'
 import MovieShowCaseLoader from './Loader'
@@ -41,24 +42,21 @@ interface Props {
 }
 
 const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType }) => {
-  const scrollContainer = useRef(null)
   const MovieList = useQuery(queries.MovieList, {
     variables: { page: 1, movieType },
   })
+  const scrollContainer = useRef(null)
+  const [movieData] = useContext(MovieContext)
+  const { genreList } = movieData
 
-  const GenreList = useQuery(queries.GenreList, {
-    variables: { page: 1, movieType },
-  })
-
-  const isFetching = MovieList.loading || GenreList.loading
-  const isErrorFetching = MovieList.error || GenreList.error
+  const isFetching = MovieList.loading
+  const isErrorFetching = MovieList.error
 
   if (isErrorFetching) {
     return <div>Oops Something wrong</div>
   }
 
   const { movies }: { movies: Movie[] } = MovieList?.data?.movieList || {}
-  const { genreList }: { genreList: Genre[] } = GenreList?.data || {}
 
   return (
     <Wrapper className={className}>
