@@ -8,7 +8,7 @@ const GQL_GENRE_LIST = `query GenreList {
   }
 }`
 
-type Genre = { id: string; name: string }
+export type Genre = { id: string; name: string }
 
 interface State {
   genreList: Genre[]
