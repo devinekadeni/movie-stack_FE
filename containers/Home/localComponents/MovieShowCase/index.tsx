@@ -20,7 +20,7 @@ import {
 } from './styles'
 import { titleEncoder } from '@/helpers/formatter'
 
-interface Movie {
+export interface Movie {
   id: string
   poster: string
   rating: number

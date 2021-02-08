@@ -11,6 +11,7 @@ export const HeaderSide = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 10px;
 
   h1 {
     margin: 0;
@@ -28,4 +29,22 @@ export const ChevronDownIcon = styled(KeyboardArrowDown).attrs({ size: '2em' })`
   color: #9fa6b0;
   position: absolute;
   right: 12px;
+`
+
+export const ContentSide = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+  column-gap: 40px;
+`
+
+export const MovieListSection = styled.section<{ $movieHeight: number | null }>`
+  max-height: ${(props) => (props.$movieHeight ? `${props.$movieHeight}px` : 'auto')};
+  overflow-y: scroll;
+`
+
+export const MovieList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px 28px;
+  padding-top: 35px;
 `

@@ -39,7 +39,7 @@ export const movieTypeMapping = {
   TOP_RATED: {
     releaseDateStart: '',
     releaseDateEnd: next4Month,
-    ratingStart: 0,
+    ratingStart: 6,
     ratingEnd: 10,
   },
 }

@@ -1,0 +1,22 @@
+query SearchMovies($page: Int!, $searchParams: searchParams) {
+  searchMovies(page: $page, searchParams: $searchParams) {
+    totalResult
+    currentPage
+    hasMore
+    movies {
+      id
+      title
+      poster
+      backdrop
+      genres {
+        id
+        name
+      }
+      genreIds
+      rating
+      summary
+      releaseDate
+      duration
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import Slider from '@material-ui/core/Slider'
 
 import { MovieContext, Genre } from '@/context/MovieContext'
@@ -7,41 +7,33 @@ import DatePicker from '@/components/DatePicker'
 import Field from '../localComponents/Field'
 import MovieType from './MovieType'
 
-import { movieTypeMapping, next4Month } from '../helper'
+import { movieTypeMapping } from '../helper'
 
 import { Wrapper, Heading, FilterSection, DateWrapper, GenreList, Chip } from './styles'
 
 type Filter = {
-  releaseDateStart?: string
-  releaseDateEnd?: string
-  withGenres?: string
-  ratingStart?: number
-  ratingEnd?: number
+  releaseDateStart: string
+  releaseDateEnd: string
+  withGenres: string
+  ratingStart: number
+  ratingEnd: number
 }
 interface Props {
   onReset: () => void
   onChangeFilter: (filter: Filter) => void
+  filterValue: {
+    releaseDateStart: string
+    releaseDateEnd: string
+    withGenres: string
+    ratingStart: number
+    ratingEnd: number
+  }
 }
 
-const Filter: React.FC<Props> = ({ onReset, onChangeFilter = () => {} }) => {
+const Filter: React.FC<Props> = ({ onReset, onChangeFilter = () => {}, filterValue }) => {
   const [movieData] = useContext(MovieContext)
   const { genreList } = movieData
-  const [rating, setRating] = useState([0, 100])
-  const [releaseDateStart, setReleaseDateStart] = useState('')
-  const [releaseDateEnd, setReleaseDateEnd] = useState(next4Month)
-  const [selectedGenreIds, setSelectedGenreIds] = useState<string[]>([])
-
-  useEffect(() => {
-    const filterPayload = {
-      releaseDateStart,
-      releaseDateEnd,
-      withGenres: selectedGenreIds.join('|'),
-      ratingStart: rating[0],
-      ratingEnd: rating[1],
-    }
-
-    onChangeFilter(filterPayload)
-  }, [rating, releaseDateStart, releaseDateEnd, selectedGenreIds])
+  const selectedGenreIds = filterValue.withGenres ? filterValue.withGenres.split('|') : []
 
   const handleChangeGenre = (genre: Genre) => {
     let newValue = [...selectedGenreIds]
@@ -52,7 +44,7 @@ const Filter: React.FC<Props> = ({ onReset, onChangeFilter = () => {} }) => {
       newValue.push(genre.id)
     }
 
-    setSelectedGenreIds(newValue)
+    onChangeFilter({ ...filterValue, withGenres: newValue.join('|') })
   }
 
   return (
@@ -72,19 +64,28 @@ const Filter: React.FC<Props> = ({ onReset, onChangeFilter = () => {} }) => {
                 ratingEnd,
               } = movieTypeMapping[movieType]
 
-              setReleaseDateStart(releaseDateStart)
-              setReleaseDateEnd(releaseDateEnd)
-              setRating([ratingStart, ratingEnd])
-              setSelectedGenreIds([])
+              onChangeFilter({
+                releaseDateStart,
+                releaseDateEnd,
+                ratingStart,
+                ratingEnd,
+                withGenres: '',
+              })
             }}
           />
         </Field>
 
         <Field title="Rating">
           <Slider
-            value={rating}
+            value={[filterValue.ratingStart * 10, filterValue.ratingEnd * 10]}
             onChange={(_, rangeValue) => {
-              setRating(rangeValue as number[])
+              const [ratingStart, ratingEnd] = rangeValue as number[]
+
+              onChangeFilter({
+                ...filterValue,
+                ratingStart: ratingStart / 10,
+                ratingEnd: ratingEnd / 10,
+              })
             }}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
@@ -95,16 +96,16 @@ const Filter: React.FC<Props> = ({ onReset, onChangeFilter = () => {} }) => {
           <DateWrapper>
             <DatePicker
               label="From Year"
-              value={releaseDateStart}
+              value={filterValue.releaseDateStart}
               onChange={(e) => {
-                setReleaseDateStart(e.target.value)
+                onChangeFilter({ ...filterValue, releaseDateStart: e.target.value })
               }}
             />
             <DatePicker
               label="To Year"
-              value={releaseDateEnd}
+              value={filterValue.releaseDateEnd}
               onChange={(e) => {
-                setReleaseDateEnd(e.target.value)
+                onChangeFilter({ ...filterValue, releaseDateEnd: e.target.value })
               }}
             />
           </DateWrapper>
