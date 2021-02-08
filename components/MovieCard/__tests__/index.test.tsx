@@ -9,14 +9,11 @@ test('should render MovieCard properly', () => {
     genres: ['Action', 'Horror', 'Comedy'],
   }
 
-  const optimizedImgByNextjs =
-    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-
   render(<MovieCard {...props} />)
 
   expect(screen.getByAltText('poster image')).toBeInTheDocument()
   expect(screen.getByAltText('poster image').getAttribute('src')).toContain(
-    optimizedImgByNextjs
+    props.posterUrl
   )
 })
 
@@ -28,12 +25,9 @@ test('should render MovieCard with empty poster props', () => {
     genres: ['Action', 'Horror', 'Comedy'],
   }
 
-  const optimizedImgByNextjs =
-    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-
   render(<MovieCard {...props} />)
 
   expect(screen.getByAltText('poster image').getAttribute('src')).toContain(
-    optimizedImgByNextjs
+    props.posterUrl
   )
 })
