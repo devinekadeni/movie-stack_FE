@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
   & > div:first-child {
     position: relative;
-    height: 300px;
+    height: auto;
   }
 `
 
