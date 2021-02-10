@@ -6,9 +6,9 @@ import DropDownMenu from '@/components/DropDown/Menu'
 import MovieCard from '@/components/MovieCard'
 
 import { MovieContext } from '@/context/MovieContext'
-import GLOBAL from '@/config/global'
 import * as queries from './queries.graphql'
 import Filter from './Filter'
+import MovieListLoader from './localComponents/MovieListLoader'
 import { SORT_ITEMS, next4Month } from './helper'
 import { Movie } from '@/containers/Home/localComponents/MovieShowCase'
 import {
@@ -93,7 +93,7 @@ const SearchPage: React.FC = () => {
         <MovieListSection $movieHeight={movieHeight} ref={movieRef}>
           <MovieList>
             {loading ? (
-              <div>Loading...</div>
+              <MovieListLoader />
             ) : (
               movieList.map((movie) => {
                 const genres = movie.genreIds.map((genreId) => {
@@ -102,7 +102,8 @@ const SearchPage: React.FC = () => {
                 return (
                   <MovieCard
                     key={movie.id}
-                    posterUrl={`${GLOBAL.imageBaseURL}/w185${movie.poster}`}
+                    size="w185"
+                    posterUrl={movie.poster}
                     rating={movie.rating}
                     title={movie.title}
                     genres={genres.slice(0, 4)}
