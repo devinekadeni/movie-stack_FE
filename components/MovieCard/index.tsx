@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Poster from './Poster'
 import Rating from './Rating'
 import { SCREEN } from '@/styles/mediaBreakPoint'
+import GLOBAL from '@/config/global'
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,8 +35,9 @@ const Genre = styled.span`
   }
 `
 
-interface Props {
+export interface Props {
   posterUrl: string
+  size: 'w185' | 'w342'
   rating: number
   title: string
   genres: string[]
@@ -45,8 +47,17 @@ interface Props {
 const DEFAULT_POSTER =
   'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg'
 
-const MovieCard: React.FC<Props> = ({ posterUrl, rating, title, genres, className }) => {
-  const posterImage = posterUrl || DEFAULT_POSTER
+const MovieCard: React.FC<Props> = ({
+  posterUrl,
+  size,
+  rating,
+  title,
+  genres,
+  className,
+}) => {
+  const posterImage = posterUrl
+    ? `${GLOBAL.imageBaseURL}/${size}/${posterUrl}`
+    : DEFAULT_POSTER
 
   return (
     <Wrapper className={className}>

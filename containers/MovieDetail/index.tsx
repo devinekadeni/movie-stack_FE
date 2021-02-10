@@ -170,7 +170,8 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       <PosterSection>
         {movie.id && (
           <MovieCard
-            posterUrl={`${GLOBAL.imageBaseURL}/w342${movie.poster}`}
+            size="w342"
+            posterUrl={movie.poster}
             rating={movie.rating}
             title={movie.title}
             genres={movie.genres.map((genre) => genre.name)}

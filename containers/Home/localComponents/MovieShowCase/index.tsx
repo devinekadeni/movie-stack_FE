@@ -1,7 +1,6 @@
 import { useRef, useContext } from 'react'
 import Link from 'next/link'
 import { useQuery } from '@apollo/client'
-import GLOBAL from '@/config/global'
 
 import * as queries from '../../queries.graphql'
 import { MovieContext } from '@/context/MovieContext'
@@ -83,7 +82,8 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
               >
                 <a>
                   <MovieCard
-                    posterUrl={`${GLOBAL.imageBaseURL}/w185${movie.poster}`}
+                    size="w185"
+                    posterUrl={movie.poster}
                     rating={movie.rating}
                     title={movie.title}
                     genres={genres.slice(0, 4)}
