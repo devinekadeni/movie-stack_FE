@@ -15,7 +15,25 @@ function createApolloClient() {
     link: new HttpLink({
       uri: GLOBAL.graphqlBaseURL,
     }),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            searchMovies: {
+              keyArgs: ['searchParams'], // use separate cache memory if list of this params exist
+              merge(existing = { movies: [] }, incoming) {
+                return {
+                  currentPage: incoming.currentPage,
+                  hasMore: incoming.hasMore,
+                  movies: [...existing.movies, ...incoming.movies],
+                  totalResult: incoming.totalResult,
+                }
+              },
+            },
+          },
+        },
+      },
+    }),
   })
 }
 

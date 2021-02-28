@@ -11,6 +11,7 @@ import Filter from './Filter'
 import MovieListLoader from './localComponents/MovieListLoader'
 import { SORT_ITEMS, next4Month } from './helper'
 import { Movie } from '@/containers/Home/localComponents/MovieShowCase'
+import useInfiniteScroll from '@/helpers/hooks/useInfiniteScroll'
 import {
   Wrapper,
   HeaderSide,
@@ -35,7 +36,7 @@ const SearchPage: React.FC = () => {
   const movieRef = useRef<null | HTMLElement>(null)
   const [{ genreList }] = useContext(MovieContext)
 
-  const { data, loading } = useQuery(queries.SearchMovies, {
+  const { data, loading, fetchMore } = useQuery(queries.SearchMovies, {
     variables: {
       page: 1,
       searchParams: {
@@ -48,16 +49,48 @@ const SearchPage: React.FC = () => {
   const movieList: Movie[] = data?.searchMovies?.movies || []
 
   useEffect(() => {
-    return () => {
-      if (movieRef.current) {
-        const viewportHeight = window.innerHeight
-        const { top } = movieRef.current?.getBoundingClientRect()
+    if (movieRef.current) {
+      movieRef.current.addEventListener('scroll', loadMoreMovies)
 
-        const positionHeight = viewportHeight - top
-        setMovieHeight(positionHeight)
-      }
+      const viewportHeight = window.innerHeight
+      const { top } = movieRef.current?.getBoundingClientRect()
+
+      const positionHeight = 2 * (viewportHeight - top)
+      setMovieHeight(positionHeight)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', loadMoreMovies)
     }
   }, [])
+
+  useEffect(() => {
+    movieRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [filterValue])
+
+  const loadMoreMovies = () => {
+    if (data) {
+      const { currentPage, hasMore } = data.searchMovies
+
+      if (hasMore) {
+        fetchMore({
+          variables: {
+            page: currentPage + 1,
+            searchParams: {
+              filter: filterValue,
+              sortBy: sortValue,
+            },
+          },
+        }).then(() => {
+          setIsFetching(false)
+        })
+      }
+    } else if (isFetching && !data?.searchMovies?.hasMore) {
+      setIsFetching(false)
+    }
+  }
+
+  const [isFetching, setIsFetching] = useInfiniteScroll(loadMoreMovies, movieRef.current)
 
   return (
     <Wrapper>
