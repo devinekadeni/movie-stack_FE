@@ -1,5 +1,5 @@
 import { useRef, useContext } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 
 import * as queries from '../../queries.graphql'
@@ -16,6 +16,7 @@ import {
   Line,
   ScrollButtonWrapper,
   MovieListWrapper,
+  MovieCardWrapper,
 } from './styles'
 import { titleEncoder } from '@/helpers/formatter'
 
@@ -36,6 +37,7 @@ interface Props {
 }
 
 const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType }) => {
+  const router = useRouter()
   const MovieList = useQuery(queries.MovieList, {
     variables: { page: 1, movieType },
   })
@@ -76,20 +78,20 @@ const MovieShowCase: React.FC<Props> = ({ categoryTitle, className, movieType })
             })
 
             return (
-              <Link
+              <MovieCardWrapper
                 key={movie.id}
-                href={`/movie/${titleEncoder(movie.title)}_${movie.id}`}
+                onClick={() => {
+                  router.push(`/movie/${titleEncoder(movie.title)}_${movie.id}`)
+                }}
               >
-                <a>
-                  <MovieCard
-                    size="w185"
-                    posterUrl={movie.poster}
-                    rating={movie.rating}
-                    title={movie.title}
-                    genres={genres.slice(0, 4)}
-                  />
-                </a>
-              </Link>
+                <MovieCard
+                  size="w185"
+                  posterUrl={movie.poster}
+                  rating={movie.rating}
+                  title={movie.title}
+                  genres={genres.slice(0, 4)}
+                />
+              </MovieCardWrapper>
             )
           })
         )}

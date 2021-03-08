@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Poster from './Poster'
 import Rating from './Rating'
+import LayerInfo from './LayerInfo'
 import { SCREEN } from '@/styles/mediaBreakPoint'
 import GLOBAL from '@/config/global'
 
@@ -42,6 +43,7 @@ export interface Props {
   title: string
   genres: string[]
   className?: string
+  withMenu?: boolean
 }
 
 const DEFAULT_POSTER =
@@ -54,6 +56,7 @@ const MovieCard: React.FC<Props> = ({
   title,
   genres,
   className,
+  withMenu = true,
 }) => {
   const posterImage = posterUrl
     ? `${GLOBAL.imageBaseURL}/${size}/${posterUrl}`
@@ -64,6 +67,7 @@ const MovieCard: React.FC<Props> = ({
       <div>
         <Poster src={posterImage} alt="poster image" />
         <Rating rating={rating} />
+        {withMenu && <LayerInfo />}
       </div>
       <MovieTitle>{title}</MovieTitle>
       {genres && <Genre>{genres.join(', ')}</Genre>}

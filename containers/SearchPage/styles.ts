@@ -49,8 +49,8 @@ export const MovieList = styled.div`
   padding-top: 35px;
 `
 
-export const MovieCardWrapper = styled.a.attrs({ target: 'blank', rel: 'noreferrer' })`
-  text-decoration: none;
+export const MovieCardWrapper = styled.div`
+  cursor: pointer;
 
   h5 {
     transition: color 0.3s;

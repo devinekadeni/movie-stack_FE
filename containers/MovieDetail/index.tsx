@@ -175,6 +175,7 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
             rating={movie.rating}
             title={movie.title}
             genres={movie.genres.map((genre) => genre.name)}
+            withMenu={false}
           />
         )}
         <ActionButtonGroup>

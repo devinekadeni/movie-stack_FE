@@ -137,7 +137,9 @@ const SearchPage: React.FC = () => {
                 return (
                   <MovieCardWrapper
                     key={movie.id}
-                    href={`/movie/${titleEncoder(movie.title)}_${movie.id}`}
+                    onClick={() => {
+                      window.open(`/movie/${titleEncoder(movie.title)}_${movie.id}`)
+                    }}
                   >
                     <MovieCard
                       size="w185"
