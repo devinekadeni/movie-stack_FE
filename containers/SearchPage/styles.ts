@@ -48,3 +48,17 @@ export const MovieList = styled.div`
   gap: 40px 28px;
   padding-top: 35px;
 `
+
+export const MovieCardWrapper = styled.a.attrs({ target: 'blank', rel: 'noreferrer' })`
+  text-decoration: none;
+
+  h5 {
+    transition: color 0.3s;
+  }
+
+  &:hover {
+    h5 {
+      color: #11cfbc;
+    }
+  }
+`

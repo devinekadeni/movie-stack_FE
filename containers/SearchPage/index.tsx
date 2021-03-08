@@ -12,6 +12,7 @@ import MovieListLoader from './localComponents/MovieListLoader'
 import { SORT_ITEMS, next4Month } from './helper'
 import { Movie } from '@/containers/Home/localComponents/MovieShowCase'
 import useInfiniteScroll from '@/helpers/hooks/useInfiniteScroll'
+import { titleEncoder } from '@/helpers/formatter'
 import {
   Wrapper,
   HeaderSide,
@@ -19,6 +20,7 @@ import {
   ContentSide,
   MovieListSection,
   MovieList,
+  MovieCardWrapper,
 } from './styles'
 
 const INITIAL_FILTER = {
@@ -133,14 +135,18 @@ const SearchPage: React.FC = () => {
                   return genreList.find((val) => val.id === genreId)?.name || ''
                 })
                 return (
-                  <MovieCard
+                  <MovieCardWrapper
                     key={movie.id}
-                    size="w185"
-                    posterUrl={movie.poster}
-                    rating={movie.rating}
-                    title={movie.title}
-                    genres={genres.slice(0, 4)}
-                  />
+                    href={`/movie/${titleEncoder(movie.title)}_${movie.id}`}
+                  >
+                    <MovieCard
+                      size="w185"
+                      posterUrl={movie.poster}
+                      rating={movie.rating}
+                      title={movie.title}
+                      genres={genres.slice(0, 4)}
+                    />
+                  </MovieCardWrapper>
                 )
               })
             )}
