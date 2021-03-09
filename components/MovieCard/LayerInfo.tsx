@@ -65,7 +65,11 @@ const ActionWrapper = styled.div<{ $isShown: boolean }>`
   `}
 `
 
-const LayerInfo: React.FC = () => {
+interface Props {
+  onClickShare: () => void
+}
+
+const LayerInfo: React.FC<Props> = ({ onClickShare }) => {
   const [toggleActionLayer, setTogleActionLayer] = useState(false)
 
   const handleAddToList = () => {
@@ -73,7 +77,7 @@ const LayerInfo: React.FC = () => {
   }
 
   const handleShare = () => {
-    // TODO: share function
+    onClickShare()
   }
 
   return (

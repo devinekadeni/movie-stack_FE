@@ -134,6 +134,11 @@ const SearchPage: React.FC = () => {
                 const genres = movie.genreIds.map((genreId) => {
                   return genreList.find((val) => val.id === genreId)?.name || ''
                 })
+                const { protocol, host } = window.location
+                const sharedUrl = `${protocol}//${host}/movie/${titleEncoder(
+                  movie.title
+                )}_${movie.id}`
+
                 return (
                   <MovieCardWrapper
                     key={movie.id}
@@ -147,6 +152,7 @@ const SearchPage: React.FC = () => {
                       rating={movie.rating}
                       title={movie.title}
                       genres={genres.slice(0, 4)}
+                      url={sharedUrl}
                     />
                   </MovieCardWrapper>
                 )

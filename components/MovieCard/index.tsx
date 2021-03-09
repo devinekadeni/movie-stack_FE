@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import Poster from './Poster'
 import Rating from './Rating'
 import LayerInfo from './LayerInfo'
+import ShareDialog from './ShareDialog'
 import { SCREEN } from '@/styles/mediaBreakPoint'
 import GLOBAL from '@/config/global'
 
@@ -44,6 +46,7 @@ export interface Props {
   genres: string[]
   className?: string
   withMenu?: boolean
+  url?: string
 }
 
 const DEFAULT_POSTER =
@@ -57,21 +60,40 @@ const MovieCard: React.FC<Props> = ({
   genres,
   className,
   withMenu = true,
+  url,
 }) => {
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+
   const posterImage = posterUrl
     ? `${GLOBAL.imageBaseURL}/${size}/${posterUrl}`
     : DEFAULT_POSTER
 
   return (
-    <Wrapper className={className}>
-      <div>
-        <Poster src={posterImage} alt="poster image" />
-        <Rating rating={rating} />
-        {withMenu && <LayerInfo />}
-      </div>
-      <MovieTitle>{title}</MovieTitle>
-      {genres && <Genre>{genres.join(', ')}</Genre>}
-    </Wrapper>
+    <>
+      <Wrapper className={className}>
+        <div>
+          <Poster src={posterImage} alt="poster image" />
+          <Rating rating={rating} />
+          {withMenu && (
+            <LayerInfo
+              onClickShare={() => {
+                setIsShareDialogOpen(true)
+              }}
+            />
+          )}
+        </div>
+        <MovieTitle>{title}</MovieTitle>
+        {genres && <Genre>{genres.join(', ')}</Genre>}
+      </Wrapper>
+      <ShareDialog
+        open={isShareDialogOpen}
+        onClose={(e) => {
+          e.stopPropagation()
+          setIsShareDialogOpen(false)
+        }}
+        url={url}
+      />
+    </>
   )
 }
 
