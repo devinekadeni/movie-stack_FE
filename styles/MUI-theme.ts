@@ -16,10 +16,25 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiInputBase: {
+      input: {
+        fontSize: '1.4rem',
+      },
+    },
+    MuiButton: {
+      label: {
+        fontSize: '1.4rem',
+      },
+    },
   },
   palette: {
     primary: {
       main: BASIC_COLOR.mainGreen,
+      contrastText: BASIC_COLOR.white,
+    },
+    secondary: {
+      main: BASIC_COLOR.white,
+      contrastText: BASIC_COLOR.black,
     },
   },
   typography: {
