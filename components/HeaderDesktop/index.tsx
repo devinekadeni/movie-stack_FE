@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Wrapper, Logo, Nav, SearchIcon, Languages } from './styles'
+import SearchMovie from '@/containers/SearchMovie'
+import { Wrapper, Logo, Nav, Languages } from './styles'
 
 const HeaderDesktop: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const HeaderDesktop: React.FC = () => {
         <Link href="/my-list" passHref>
           <Nav>MY LIST</Nav>
         </Link>
-        <SearchIcon />
+        <SearchMovie />
       </div>
       <div>
         <Link href="/login" passHref>

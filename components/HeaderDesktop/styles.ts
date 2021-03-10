@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Search } from '@styled-icons/boxicons-regular/Search'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -39,14 +38,6 @@ export const Nav = styled.a`
   &:hover {
     opacity: 0.8;
   }
-`
-
-export const SearchIcon = styled(Search).attrs({
-  size: '1.8rem',
-  title: 'search movies',
-})`
-  color: #9fa6b0;
-  cursor: pointer;
 `
 
 export const Languages = styled.div`
