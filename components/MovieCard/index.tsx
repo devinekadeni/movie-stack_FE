@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   & > div:first-child {
     position: relative;
     height: auto;
+    z-index: 0;
   }
 `
 

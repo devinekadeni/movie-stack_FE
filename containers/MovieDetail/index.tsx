@@ -39,7 +39,7 @@ interface Genre {
   name: string
 }
 
-interface MovieData {
+export interface MovieData {
   id: string
   title: string
   summary: string
@@ -117,7 +117,7 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       { baseCast: [], moreCast: [] }
     )
 
-  const releasedYear = movie?.releaseDate?.split('-')[0] || ''
+  const releasedYear = movie?.releaseDate?.split('-')[0] || '-'
   const releasedStatus = isReleased(movie?.releaseDate || '') ? 'Released' : 'Coming Soon'
 
   const dialogUrl = {
@@ -192,7 +192,10 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
       <SummarySection>
         <InfoSection>
           <TextInfo title="YEAR" value={releasedYear} />
-          <TextInfo title="DURATION" value={`${movie.duration} minutes`} />
+          <TextInfo
+            title="DURATION"
+            value={movie.duration ? `${movie.duration} minutes` : '-'}
+          />
           <TextInfo title="STATUS" value={releasedStatus} />
         </InfoSection>
         <Synopsis>
@@ -213,7 +216,7 @@ const MovieDetail: React.FC<Props> = ({ movieId }) => {
               )
             })}
           </CastList>
-          {moreCast.length && (
+          {!!moreCast.length && (
             <>
               <MoreCastList
                 toggleCast={toggleCast}

@@ -9,9 +9,10 @@ export const Wrapper = styled.div`
 
   & > div:first-child {
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(4, auto) 1fr;
     align-items: center;
     column-gap: 32px;
+    width: 100%;
   }
 
   & > div:last-child {
