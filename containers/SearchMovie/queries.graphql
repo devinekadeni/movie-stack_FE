@@ -1,22 +1,15 @@
 query SearchMoviesByKeyword($page: Int, $keyword: String!) {
   searchMoviesByKeyword(page: $page, keyword: $keyword) {
-    totalResult
-    currentPage
-    hasMore
     movies {
       id
       title
       poster
-      backdrop
       genres {
         id
         name
       }
       genreIds
-      rating
-      summary
       releaseDate
-      duration
     }
   }
 }

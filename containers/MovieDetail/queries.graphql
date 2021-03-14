@@ -4,12 +4,10 @@ query MovieDetail($id: ID!) {
       id
       title
       poster
-      backdrop
       genres {
         id
         name
       }
-      genreIds
       rating
       summary
       releaseDate
@@ -27,7 +25,6 @@ query MovieDetail($id: ID!) {
 
 query MovieMedia($id: ID!) {
   movieMedia(id: $id) {
-    movieId
     trailers {
       id
       url
@@ -35,7 +32,6 @@ query MovieMedia($id: ID!) {
     }
     backdrops {
       filePath
-      voteAvg
     }
   }
 }

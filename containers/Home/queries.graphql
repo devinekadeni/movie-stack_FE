@@ -1,17 +1,11 @@
 query MovieList($page: Int!, $movieType: MovieType!) {
   movieList(page: $page, movieType: $movieType) {
-    totalResult
-    currentPage
-    hasMore
     movies {
       id
       title
       poster
-      backdrop
       genreIds
       rating
-      summary
-      releaseDate
     }
   }
 }
