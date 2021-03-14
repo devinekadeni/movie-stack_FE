@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/client'
 import format from 'date-fns/format'
@@ -10,6 +10,7 @@ import { MovieData } from '@/containers/MovieDetail'
 import { MovieContext } from '@/context/MovieContext'
 import GLOBAL from '@/config/global'
 import { titleEncoder } from '@/helpers/formatter'
+import useDebounce from '@/helpers/hooks/useDebounce'
 
 import * as queries from './queries.graphql'
 import ResultItem from './ResultItem'
@@ -20,21 +21,29 @@ const SearchMovie: React.FC = () => {
   const [{ genreList }] = useContext(MovieContext)
   const [isSearchMode, setIsSearchMode] = useState(false)
   const [searchKeyword, setSearchKeyword] = useState('')
+  const debouncedSearchKeyword = useDebounce(searchKeyword, 500) as string
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [getMovies, { data }] = useLazyQuery(queries.SearchMoviesByKeyword)
 
   const movieList: MovieData[] = data?.searchMoviesByKeyword?.movies || []
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value)
-    getMovies({ variables: { keyword: encodeURIComponent(e.target.value) } })
-  }
+  useEffect(() => {
+    const keyword = debouncedSearchKeyword
+      ? encodeURIComponent(debouncedSearchKeyword)
+      : ''
+
+    getMovies({
+      variables: {
+        keyword,
+      },
+    })
+  }, [debouncedSearchKeyword])
 
   const handleClearSearch = () => {
     setSearchKeyword('')
     setIsSearchMode(false)
-    getMovies({ variables: { keyword: '' } })
   }
 
   const handleClickMovieCard = (movieTitle: string, movieId: string) => {
@@ -55,7 +64,7 @@ const SearchMovie: React.FC = () => {
         $isHidden={!isSearchMode}
         inputRef={inputRef}
         value={searchKeyword}
-        onChange={handleSearch}
+        onChange={(e) => setSearchKeyword(e.target.value)}
         onBlur={() => {
           if (!inputRef.current?.value) {
             setIsSearchMode(false)
