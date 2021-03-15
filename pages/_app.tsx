@@ -8,6 +8,7 @@ import { useApollo } from '@/services/ApolloClient'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MuiTheme from '@/styles/MUI-theme'
+import Authentication from '@/containers/Authentication'
 import Layout from '../layout'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
@@ -28,6 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <GlobalContextProvider>
+          <Authentication />
           <Layout>
             <Component {...pageProps} />
           </Layout>

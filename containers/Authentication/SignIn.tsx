@@ -28,7 +28,12 @@ interface FormData {
   password: string
 }
 
-const SignIn: React.FC = () => {
+interface Props {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
   const { handleSubmit, register, errors } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
@@ -44,11 +49,11 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <Dialog open={true} fullWidth maxWidth="xs">
+    <Dialog open={isOpen} fullWidth maxWidth="xs" onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle disableTypography>
           <h3>Sign In</h3>
-          <IconButton>
+          <IconButton onClick={onClose}>
             <CloseIcon size="24" />
           </IconButton>
         </DialogTitle>

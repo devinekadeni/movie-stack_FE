@@ -41,6 +41,21 @@ export const Nav = styled.a`
   }
 `
 
+export const AuthButton = styled.button`
+  background-color: unset;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  color: #212121;
+  text-decoration: none;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
 export const Languages = styled.div`
   display: grid;
   grid-template-columns: repeat(3, auto);

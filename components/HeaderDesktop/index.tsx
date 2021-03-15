@@ -1,8 +1,12 @@
+import { useContext } from 'react'
 import Link from 'next/link'
 import SearchMovie from '@/containers/SearchMovie'
-import { Wrapper, Logo, Nav, Languages } from './styles'
+import { AuthContext } from '@/context/AuthContext'
+import { Wrapper, Logo, Nav, AuthButton, Languages } from './styles'
 
 const HeaderDesktop: React.FC = () => {
+  const [, dispatch] = useContext(AuthContext)
+
   return (
     <Wrapper>
       <div>
@@ -19,12 +23,12 @@ const HeaderDesktop: React.FC = () => {
         <SearchMovie />
       </div>
       <div>
-        <Link href="/login" passHref>
-          <Nav>LOGIN</Nav>
-        </Link>
-        <Link href="/register" passHref>
-          <Nav>REGISTER</Nav>
-        </Link>
+        <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_IN', payload: true })}>
+          LOGIN
+        </AuthButton>
+        <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_UP', payload: true })}>
+          REGISTER
+        </AuthButton>
         <Languages>
           <Nav href="#">EN</Nav>
           <span>|</span>

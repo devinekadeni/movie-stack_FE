@@ -35,7 +35,12 @@ interface FormData {
   confirmPassword: string
 }
 
-const SignUp: React.FC = () => {
+interface Props {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
   const { handleSubmit, register, errors } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
@@ -51,11 +56,11 @@ const SignUp: React.FC = () => {
   }
 
   return (
-    <Dialog open={true} fullWidth maxWidth="xs">
+    <Dialog open={isOpen} fullWidth maxWidth="xs" onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle disableTypography>
           <h3>Sign Up</h3>
-          <IconButton>
+          <IconButton onClick={onClose}>
             <CloseIcon size="24" />
           </IconButton>
         </DialogTitle>
