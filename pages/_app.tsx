@@ -2,14 +2,13 @@ import type { AppProps } from 'next/app'
 import { useEffect, ReactNode } from 'react'
 import { ApolloProvider } from '@apollo/client'
 
-import { MuteContextProvider } from '@/context/MuteContext'
-import { MovieContextProvider } from '@/context/MovieContext'
+import GlobalContextProvider from '@/context/GlobalContextProvider'
 import { useApollo } from '@/services/ApolloClient'
 
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Layout from '../layout'
 import MuiTheme from '@/styles/MUI-theme'
+import Layout from '../layout'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
@@ -28,13 +27,11 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
       <ThemeProvider theme={MuiTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <MuteContextProvider>
-          <MovieContextProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </MovieContextProvider>
-        </MuteContextProvider>
+        <GlobalContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </GlobalContextProvider>
       </ThemeProvider>
     </ApolloProvider>
   )
