@@ -1,15 +1,28 @@
 import { useContext } from 'react'
 import Link from 'next/link'
+
+import { UserCircle as UserIcon } from '@styled-icons/boxicons-solid/UserCircle'
+
 import SearchMovie from '@/containers/SearchMovie'
 import { AuthContext } from '@/context/AuthContext'
-import { Wrapper, Logo, Nav, AuthButton, Languages } from './styles'
+import {
+  Wrapper,
+  LeftSide,
+  RightSide,
+  Logo,
+  Nav,
+  AuthButton,
+  Languages,
+  UserAccount,
+  AuthWrapper,
+} from './styles'
 
 const HeaderDesktop: React.FC = () => {
-  const [, dispatch] = useContext(AuthContext)
+  const [{ isLoggedIn, user }, dispatch] = useContext(AuthContext)
 
   return (
     <Wrapper>
-      <div>
+      <LeftSide>
         <Logo src="/logo.png" alt="logo" />
         <Link href="/" passHref>
           <Nav>HOME</Nav>
@@ -17,24 +30,35 @@ const HeaderDesktop: React.FC = () => {
         <Link href="/movies" passHref>
           <Nav>MOVIES</Nav>
         </Link>
-        <Link href="/my-list" passHref>
-          <Nav>MY LIST</Nav>
-        </Link>
+        {isLoggedIn && (
+          <Link href="/my-list" passHref>
+            <Nav>MY LIST</Nav>
+          </Link>
+        )}
         <SearchMovie />
-      </div>
-      <div>
-        <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_IN', payload: true })}>
-          LOGIN
-        </AuthButton>
-        <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_UP', payload: true })}>
-          REGISTER
-        </AuthButton>
+      </LeftSide>
+      <RightSide>
         <Languages>
           <Nav href="#">EN</Nav>
-          <span>|</span>
           <Nav href="#">ID</Nav>
         </Languages>
-      </div>
+        <span style={{ color: '#CAD3E1' }}>|</span>
+        {isLoggedIn ? (
+          <UserAccount>
+            <UserIcon size="24" />
+            <span>{user.name}</span>
+          </UserAccount>
+        ) : (
+          <AuthWrapper>
+            <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_IN', payload: true })}>
+              LOGIN
+            </AuthButton>
+            <AuthButton onClick={() => dispatch({ type: 'OPEN_SIGN_UP', payload: true })}>
+              REGISTER
+            </AuthButton>
+          </AuthWrapper>
+        )}
+      </RightSide>
     </Wrapper>
   )
 }

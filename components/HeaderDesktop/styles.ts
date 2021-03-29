@@ -6,22 +6,22 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   padding: 39px 100px;
   background-color: white;
+`
 
-  & > div:first-child {
-    display: grid;
-    grid-template-columns: repeat(4, auto) 1fr;
-    align-items: center;
-    column-gap: 32px;
-    width: 100%;
-  }
+export const LeftSide = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, auto) 1fr;
+  align-items: center;
+  column-gap: 32px;
+  width: 100%;
+`
 
-  & > div:last-child {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    align-items: center;
-    justify-content: flex-end;
-    column-gap: 32px;
-  }
+export const RightSide = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 24px;
 `
 
 export const Logo = styled.img`
@@ -58,6 +58,18 @@ export const AuthButton = styled.button`
 
 export const Languages = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  column-gap: 4px;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 8px;
+`
+
+export const UserAccount = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 12px;
+`
+
+export const AuthWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 32px;
 `
