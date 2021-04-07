@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { AuthContext } from '@/context/AuthContext'
 import dynamic from 'next/dynamic'
-const SignIn = dynamic(() => import('./SignIn'))
-const SignUp = dynamic(() => import('./SignUp'))
+const SignIn = dynamic(() => import('./SignIn'), { ssr: false })
+const SignUp = dynamic(() => import('./SignUp'), { ssr: false })
 
 const Authentication: React.FC = () => {
   // handle server side
