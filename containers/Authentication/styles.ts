@@ -37,9 +37,12 @@ export const DialogContent = styled(DialogContentMUI)`
   }
 `
 
-export const DialogActions = styled(DialogActionsMUI)`
+export const DialogActions = styled(DialogActionsMUI)<{ $hasErrorMessage?: boolean }>`
+  display: flex;
+  flex-direction: column;
+
   && {
-    padding: 24px;
+    padding: ${(p) => (p.$hasErrorMessage ? '0 24px 24px' : '24px')};
   }
 `
 
@@ -55,6 +58,11 @@ export const TextField = styled(TextFieldMUI).attrs({
       font-size: 1.4rem;
     }
   }
+`
+
+export const ErrorMessage = styled.div`
+  color: red;
+  padding: 12px;
 `
 
 export const Button = styled(ButtonMUI).attrs({
