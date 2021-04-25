@@ -20,7 +20,7 @@ interface State {
 type Action =
   | { type: 'OPEN_SIGN_IN'; payload: boolean }
   | { type: 'OPEN_SIGN_UP'; payload: boolean }
-  | { type: 'SET_USER_SESSION'; payload: { isLoggedIn: boolean; user: User } }
+  | { type: 'SET_USER_SESSION'; payload: { isLoggedIn: boolean; user: User | null } }
 
 type ContextState = [State, (state: Action) => void]
 
@@ -44,7 +44,11 @@ function reducer(state: State, action: Action): State {
     case 'SET_USER_SESSION':
       return {
         ...state,
-        user: action.payload.user,
+        user: {
+          id: action.payload.user?.id || '',
+          name: action.payload.user?.name || '',
+          email: action.payload.user?.email || '',
+        },
         isLoggedIn: action.payload.isLoggedIn,
       }
     default:
