@@ -66,6 +66,12 @@ export const UserAccount = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   column-gap: 12px;
+  transition: opacity 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 `
 
 export const AuthWrapper = styled.div`

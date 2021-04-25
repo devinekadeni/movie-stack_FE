@@ -15,6 +15,14 @@ const API = {
       withCredentials: true,
     })
   },
+  logout(): void {
+    inMemoryToken = ''
+
+    this.axiosInstance = axios.create({
+      baseURL: GLOBAL.restBaseUrl,
+      withCredentials: true,
+    })
+  },
   axiosInstance: axios.create({
     baseURL: GLOBAL.restBaseUrl,
     withCredentials: true,
