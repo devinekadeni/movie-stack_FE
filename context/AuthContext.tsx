@@ -1,4 +1,5 @@
-import { createContext, useReducer } from 'react'
+import API from '@/helpers/ApiHandler'
+import { createContext, useEffect, useReducer } from 'react'
 
 export type Genre = { id: string; name: string }
 
@@ -20,7 +21,10 @@ interface State {
 type Action =
   | { type: 'OPEN_SIGN_IN'; payload: boolean }
   | { type: 'OPEN_SIGN_UP'; payload: boolean }
-  | { type: 'SET_USER_SESSION'; payload: { isLoggedIn: boolean; user: User | null } }
+  | {
+      type: 'SET_USER_SESSION'
+      payload: { isLoggedIn: boolean; user: User | null }
+    }
 
 type ContextState = [State, (state: Action) => void]
 
@@ -60,6 +64,42 @@ export const AuthContext = createContext<ContextState>([initialState, () => null
 
 export const AuthContextProvider: React.FC = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+
+  useEffect(() => {
+    validateSession()
+  }, [])
+
+  const validateSession = async () => {
+    try {
+      const { data: resToken } = await API.call({
+        method: 'POST',
+        url: '/user/refresh_token',
+      })
+
+      API.login(resToken.data.access_token)
+
+      const { data: resUser } = await API.call({
+        method: 'GET',
+        url: '/user',
+      })
+
+      dispatch({
+        type: 'SET_USER_SESSION',
+        payload: {
+          isLoggedIn: true,
+          user: resUser.data,
+        },
+      })
+    } catch (error) {
+      dispatch({
+        type: 'SET_USER_SESSION',
+        payload: {
+          isLoggedIn: false,
+          user: null,
+        },
+      })
+    }
+  }
 
   return (
     <AuthContext.Provider value={[state, dispatch]}>
