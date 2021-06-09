@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -39,7 +39,7 @@ interface Props {
 
 const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
   const [, dispatch] = useContext(AuthContext)
-  const { handleSubmit, register, formState } = useForm<FormData>({
+  const { handleSubmit, formState, control } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -103,34 +103,46 @@ const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <TextField
-            inputRef={register}
+          <Controller
             name="email"
-            label="Email Address"
-            type="email"
-            placeholder="Input your email"
-            error={!!formState.errors.email}
-            helperText={formState.errors.email?.message}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Email Address"
+                type="email"
+                placeholder="Input your email"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+              />
+            )}
           />
-          <TextField
-            inputRef={register}
+          <Controller
             name="password"
-            label="Password"
-            type={isPasswordVisible ? 'text' : 'password'}
-            placeholder="Input your password"
-            error={!!formState.errors.password}
-            helperText={formState.errors.password?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  {isPasswordVisible ? (
-                    <VisibleOnIcon onClick={togglePasswordVisibility} />
-                  ) : (
-                    <VisibleOffIcon onClick={togglePasswordVisibility} />
-                  )}
-                </InputAdornment>
-              ),
-            }}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Password"
+                type={isPasswordVisible ? 'text' : 'password'}
+                placeholder="Input your password"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      {isPasswordVisible ? (
+                        <VisibleOnIcon onClick={togglePasswordVisibility} />
+                      ) : (
+                        <VisibleOffIcon onClick={togglePasswordVisibility} />
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
           />
         </DialogContent>
         <DialogActions $hasErrorMessage={!!errorMessage}>

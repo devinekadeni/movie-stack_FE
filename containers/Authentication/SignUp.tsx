@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -45,7 +45,7 @@ interface Props {
 }
 
 const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { handleSubmit, register, formState } = useForm<FormData>({
+  const { handleSubmit, formState, control } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
   const [, dispatch] = useContext(AuthContext)
@@ -109,63 +109,87 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <TextField
-            inputRef={register}
+          <Controller
             name="name"
-            label="Name"
-            type="text"
-            placeholder="Input your name"
-            error={!!formState.errors.name}
-            helperText={formState.errors.name?.message}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Name"
+                type="text"
+                placeholder="Input your name"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+              />
+            )}
           />
-          <TextField
-            inputRef={register}
+          <Controller
             name="email"
-            label="Email Address"
-            type="email"
-            placeholder="Input your email"
-            error={!!formState.errors.email}
-            helperText={formState.errors.email?.message}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Email Address"
+                type="email"
+                placeholder="Input your email"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+              />
+            )}
           />
-          <TextField
-            inputRef={register}
+          <Controller
             name="password"
-            label="Password"
-            type={isPasswordVisible ? 'text' : 'password'}
-            placeholder="Input your password"
-            error={!!formState.errors.password}
-            helperText={formState.errors.password?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  {isPasswordVisible ? (
-                    <VisibleOnIcon onClick={togglePasswordVisibility} />
-                  ) : (
-                    <VisibleOffIcon onClick={togglePasswordVisibility} />
-                  )}
-                </InputAdornment>
-              ),
-            }}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Password"
+                type={isPasswordVisible ? 'text' : 'password'}
+                placeholder="Input your password"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      {isPasswordVisible ? (
+                        <VisibleOnIcon onClick={togglePasswordVisibility} />
+                      ) : (
+                        <VisibleOffIcon onClick={togglePasswordVisibility} />
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
           />
-          <TextField
-            inputRef={register}
+          <Controller
             name="confirmPassword"
-            label="Confirm Password"
-            type={isPasswordVisible ? 'text' : 'password'}
-            placeholder="Re-input your password"
-            error={!!formState.errors.confirmPassword}
-            helperText={formState.errors.confirmPassword?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  {isPasswordVisible ? (
-                    <VisibleOnIcon onClick={togglePasswordVisibility} />
-                  ) : (
-                    <VisibleOffIcon onClick={togglePasswordVisibility} />
-                  )}
-                </InputAdornment>
-              ),
-            }}
+            control={control}
+            render={({ field, fieldState }: any) => (
+              <TextField
+                label="Confirm Password"
+                type={isPasswordVisible ? 'text' : 'password'}
+                placeholder="Re-input your password"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      {isPasswordVisible ? (
+                        <VisibleOnIcon onClick={togglePasswordVisibility} />
+                      ) : (
+                        <VisibleOffIcon onClick={togglePasswordVisibility} />
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
           />
         </DialogContent>
         <DialogActions>
