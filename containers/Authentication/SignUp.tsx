@@ -45,7 +45,7 @@ interface Props {
 }
 
 const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { handleSubmit, register, errors, formState } = useForm<FormData>({
+  const { handleSubmit, register, formState } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
   const [, dispatch] = useContext(AuthContext)
@@ -115,8 +115,8 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Name"
             type="text"
             placeholder="Input your name"
-            error={!!errors.name}
-            helperText={errors.name?.message}
+            error={!!formState.errors.name}
+            helperText={formState.errors.name?.message}
           />
           <TextField
             inputRef={register}
@@ -124,8 +124,8 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Email Address"
             type="email"
             placeholder="Input your email"
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            error={!!formState.errors.email}
+            helperText={formState.errors.email?.message}
           />
           <TextField
             inputRef={register}
@@ -133,8 +133,8 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Password"
             type={isPasswordVisible ? 'text' : 'password'}
             placeholder="Input your password"
-            error={!!errors.password}
-            helperText={errors.password?.message}
+            error={!!formState.errors.password}
+            helperText={formState.errors.password?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -153,8 +153,8 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Confirm Password"
             type={isPasswordVisible ? 'text' : 'password'}
             placeholder="Re-input your password"
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
+            error={!!formState.errors.confirmPassword}
+            helperText={formState.errors.confirmPassword?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">

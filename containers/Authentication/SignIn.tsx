@@ -39,7 +39,7 @@ interface Props {
 
 const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
   const [, dispatch] = useContext(AuthContext)
-  const { handleSubmit, register, errors, formState } = useForm<FormData>({
+  const { handleSubmit, register, formState } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -109,8 +109,8 @@ const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Email Address"
             type="email"
             placeholder="Input your email"
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            error={!!formState.errors.email}
+            helperText={formState.errors.email?.message}
           />
           <TextField
             inputRef={register}
@@ -118,8 +118,8 @@ const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
             label="Password"
             type={isPasswordVisible ? 'text' : 'password'}
             placeholder="Input your password"
-            error={!!errors.password}
-            helperText={errors.password?.message}
+            error={!!formState.errors.password}
+            helperText={formState.errors.password?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
