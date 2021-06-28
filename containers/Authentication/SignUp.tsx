@@ -69,7 +69,7 @@ const SignUp: React.FC<Props> = ({ isOpen, onClose }) => {
       })
 
       if (resUser.status === 'success') {
-        API.login(resUser.data.access_token)
+        API.login(resUser.data.access_token, resUser.data.access_token_expiry_UTC)
 
         const userData = {
           email: resUser.data.email,

@@ -1,12 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosPromise } from 'axios'
 import GLOBAL from '@/config/global'
 
-let inMemoryToken = ''
+export let inMemoryToken = {
+  token: '',
+  expiry: '',
+}
 
 const API = {
-  login(token: string): void {
-    inMemoryToken = token
-    const headers = { Authorization: `Bearer ${inMemoryToken}` }
+  login(token: string, expiry: string): void {
+    inMemoryToken.token = token
+    inMemoryToken.expiry = expiry
+    const headers = { Authorization: `Bearer ${inMemoryToken.token}` }
 
     // reinitialize axios instance with headers Authorization
     this.axiosInstance = axios.create({
@@ -16,7 +20,7 @@ const API = {
     })
   },
   logout(): void {
-    inMemoryToken = ''
+    inMemoryToken = { token: '', expiry: '' }
 
     this.axiosInstance = axios.create({
       baseURL: GLOBAL.restBaseUrl,

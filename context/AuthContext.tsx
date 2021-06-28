@@ -76,7 +76,7 @@ export const AuthContextProvider: React.FC = (props) => {
         url: '/user/refresh_token',
       })
 
-      API.login(resToken.data.access_token)
+      API.login(resToken.data.access_token, resToken.data.access_token_expiry_UTC)
 
       const { data: resUser } = await API.call({
         method: 'GET',

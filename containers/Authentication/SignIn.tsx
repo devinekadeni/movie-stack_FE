@@ -63,7 +63,7 @@ const SignIn: React.FC<Props> = ({ isOpen, onClose }) => {
       const { data, status } = result.data
 
       if (status === 'success') {
-        API.login(data.access_token)
+        API.login(data.access_token, data.access_token_expiry_UTC)
 
         const userData = {
           email: data.email,
